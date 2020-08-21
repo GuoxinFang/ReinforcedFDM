@@ -1,0 +1,1796 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>MainWindow</class>
+ <widget class="QMainWindow" name="MainWindow">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>1450</width>
+    <height>887</height>
+   </rect>
+  </property>
+  <property name="mouseTracking">
+   <bool>true</bool>
+  </property>
+  <property name="focusPolicy">
+   <enum>Qt::StrongFocus</enum>
+  </property>
+  <property name="acceptDrops">
+   <bool>true</bool>
+  </property>
+  <property name="windowTitle">
+   <string>MeshWorksQT - Stress field Printing</string>
+  </property>
+  <property name="windowIcon">
+   <iconset resource="ShapeLab.qrc">
+    <normaloff>:/resource/icon.jpg</normaloff>:/resource/icon.jpg</iconset>
+  </property>
+  <widget class="QWidget" name="centralWidget">
+   <property name="mouseTracking">
+    <bool>true</bool>
+   </property>
+   <property name="acceptDrops">
+    <bool>true</bool>
+   </property>
+   <layout class="QHBoxLayout" name="horizontalLayout"/>
+  </widget>
+  <widget class="QToolBar" name="navigationToolBar">
+   <property name="windowTitle">
+    <string>navigationToolBar</string>
+   </property>
+   <property name="movable">
+    <bool>false</bool>
+   </property>
+   <property name="iconSize">
+    <size>
+     <width>25</width>
+     <height>25</height>
+    </size>
+   </property>
+   <property name="floatable">
+    <bool>false</bool>
+   </property>
+   <attribute name="toolBarArea">
+    <enum>TopToolBarArea</enum>
+   </attribute>
+   <attribute name="toolBarBreak">
+    <bool>false</bool>
+   </attribute>
+   <addaction name="actionFront"/>
+   <addaction name="actionBack"/>
+   <addaction name="actionTop"/>
+   <addaction name="actionBottom"/>
+   <addaction name="actionLeft"/>
+   <addaction name="actionRight"/>
+   <addaction name="actionIsometric"/>
+   <addaction name="separator"/>
+   <addaction name="actionZoom_In"/>
+   <addaction name="actionZoom_Out"/>
+   <addaction name="actionZoom_All"/>
+   <addaction name="actionZoom_Window"/>
+   <addaction name="separator"/>
+   <addaction name="actionShade"/>
+   <addaction name="actionMesh"/>
+   <addaction name="actionNode"/>
+   <addaction name="actionProfile"/>
+   <addaction name="actionFaceNormal"/>
+   <addaction name="actionNodeNormal"/>
+  </widget>
+  <widget class="QStatusBar" name="statusBar"/>
+  <widget class="QToolBar" name="selectionToolBar">
+   <property name="windowTitle">
+    <string>selectionToolBar</string>
+   </property>
+   <property name="movable">
+    <bool>false</bool>
+   </property>
+   <property name="iconSize">
+    <size>
+     <width>25</width>
+     <height>25</height>
+    </size>
+   </property>
+   <property name="floatable">
+    <bool>false</bool>
+   </property>
+   <attribute name="toolBarArea">
+    <enum>TopToolBarArea</enum>
+   </attribute>
+   <attribute name="toolBarBreak">
+    <bool>false</bool>
+   </attribute>
+   <addaction name="actionSaveSelection"/>
+   <addaction name="actionReadSelection"/>
+   <addaction name="separator"/>
+   <addaction name="actionSelectNode"/>
+   <addaction name="actionSelectEdge"/>
+   <addaction name="actionSelectFace"/>
+   <addaction name="actionSelectFix"/>
+   <addaction name="actionSelectHandle"/>
+  </widget>
+  <widget class="QDockWidget" name="dockWidget">
+   <property name="sizePolicy">
+    <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
+     <horstretch>0</horstretch>
+     <verstretch>0</verstretch>
+    </sizepolicy>
+   </property>
+   <property name="minimumSize">
+    <size>
+     <width>350</width>
+     <height>800</height>
+    </size>
+   </property>
+   <property name="maximumSize">
+    <size>
+     <width>350</width>
+     <height>800</height>
+    </size>
+   </property>
+   <attribute name="dockWidgetArea">
+    <number>1</number>
+   </attribute>
+   <widget class="QWidget" name="dockWidgetContents">
+    <property name="layoutDirection">
+     <enum>Qt::LeftToRight</enum>
+    </property>
+    <layout class="QVBoxLayout" name="verticalLayout_2">
+     <item>
+      <layout class="QHBoxLayout" name="horizontalLayout_16">
+       <item>
+        <widget class="QCheckBox" name="boxDeselect">
+         <property name="layoutDirection">
+          <enum>Qt::LeftToRight</enum>
+         </property>
+         <property name="text">
+          <string>Deselect Mode</string>
+         </property>
+         <property name="checked">
+          <bool>false</bool>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QCheckBox" name="checkBox_spaseVectorField">
+         <property name="text">
+          <string>Sparse vector field</string>
+         </property>
+         <property name="checked">
+          <bool>false</bool>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QCheckBox" name="checkBox_3DCompute">
+         <property name="text">
+          <string>3D Compute</string>
+         </property>
+         <property name="checked">
+          <bool>true</bool>
+         </property>
+        </widget>
+       </item>
+      </layout>
+     </item>
+     <item>
+      <widget class="QTabWidget" name="tabWidget">
+       <property name="minimumSize">
+        <size>
+         <width>100</width>
+         <height>350</height>
+        </size>
+       </property>
+       <property name="maximumSize">
+        <size>
+         <width>2000</width>
+         <height>350</height>
+        </size>
+       </property>
+       <property name="tabPosition">
+        <enum>QTabWidget::North</enum>
+       </property>
+       <property name="tabShape">
+        <enum>QTabWidget::Rounded</enum>
+       </property>
+       <property name="currentIndex">
+        <number>3</number>
+       </property>
+       <property name="elideMode">
+        <enum>Qt::ElideNone</enum>
+       </property>
+       <widget class="QWidget" name="tab_3">
+        <attribute name="title">
+         <string>IsoSurface</string>
+        </attribute>
+        <layout class="QVBoxLayout" name="verticalLayout_3">
+         <item>
+          <widget class="QPushButton" name="pushButton_compPrincipleStressField">
+           <property name="text">
+            <string>Input Stress Tensor (FEM) and Compute Principle Stress</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <layout class="QHBoxLayout" name="horizontalLayout_12">
+           <item>
+            <widget class="QLabel" name="Tensile">
+             <property name="text">
+              <string>Tensile</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QLineEdit" name="tensileRegionRatio">
+             <property name="maximumSize">
+              <size>
+               <width>16777215</width>
+               <height>16777215</height>
+              </size>
+             </property>
+             <property name="text">
+              <string>0.1</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QLabel" name="Compress">
+             <property name="text">
+              <string>Compress</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QLineEdit" name="compressRegionRatio">
+             <property name="maximumSize">
+              <size>
+               <width>16777215</width>
+               <height>16777215</height>
+              </size>
+             </property>
+             <property name="text">
+              <string>0.1</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QPushButton" name="pushButton_changeTensileandCompressRegion">
+             <property name="text">
+              <string>Change ratio</string>
+             </property>
+            </widget>
+           </item>
+          </layout>
+         </item>
+         <item>
+          <layout class="QHBoxLayout" name="horizontalLayout_4">
+           <item>
+            <widget class="QPushButton" name="pushButton_CompGuideField">
+             <property name="enabled">
+              <bool>false</bool>
+             </property>
+             <property name="text">
+              <string>Field Computing</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QCheckBox" name="checkBox_drawScalarGradient">
+             <property name="text">
+              <string>Vector / Scalar</string>
+             </property>
+             <property name="checked">
+              <bool>true</bool>
+             </property>
+            </widget>
+           </item>
+          </layout>
+         </item>
+         <item>
+          <layout class="QHBoxLayout" name="horizontalLayout_15">
+           <item>
+            <widget class="QPushButton" name="pushButton_CompVectorField">
+             <property name="text">
+              <string>Vector Feild</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QPushButton" name="pushButton_VectorFieldFlipNormal">
+             <property name="text">
+              <string>Flip normal</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QPushButton" name="pushButton_VectorFieldDeleteRegion">
+             <property name="text">
+              <string>Delete region</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QPushButton" name="pushButton_CompScalarField">
+             <property name="text">
+              <string>Scalar Field</string>
+             </property>
+            </widget>
+           </item>
+          </layout>
+         </item>
+         <item>
+          <widget class="QLabel" name="label_20">
+           <property name="maximumSize">
+            <size>
+             <width>16777215</width>
+             <height>10</height>
+            </size>
+           </property>
+           <property name="text">
+            <string>----------------------------------------------------------------------------</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <layout class="QHBoxLayout" name="horizontalLayout_6">
+           <item>
+            <widget class="QPushButton" name="pushButtonBuildIsoSurface">
+             <property name="minimumSize">
+              <size>
+               <width>0</width>
+               <height>0</height>
+              </size>
+             </property>
+             <property name="text">
+              <string>Curved Layer Slicer</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QLabel" name="label_11">
+             <property name="maximumSize">
+              <size>
+               <width>40</width>
+               <height>16777215</height>
+              </size>
+             </property>
+             <property name="text">
+              <string>Layer #</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QSpinBox" name="isoLayerNumber">
+             <property name="maximum">
+              <number>1000</number>
+             </property>
+             <property name="value">
+              <number>100</number>
+             </property>
+            </widget>
+           </item>
+          </layout>
+         </item>
+         <item>
+          <layout class="QHBoxLayout" name="horizontalLayout_13">
+           <item>
+            <widget class="QCheckBox" name="checkBox_UniformThickness">
+             <property name="text">
+              <string>Layer (min, max)</string>
+             </property>
+             <property name="checked">
+              <bool>false</bool>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QDoubleSpinBox" name="doubleSpinBox_LayerThickMin">
+             <property name="value">
+              <double>0.100000000000000</double>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QDoubleSpinBox" name="doubleSpinBox_LayerThickMax">
+             <property name="value">
+              <double>1.500000000000000</double>
+             </property>
+            </widget>
+           </item>
+          </layout>
+         </item>
+         <item>
+          <layout class="QHBoxLayout" name="horizontalLayout_33">
+           <item>
+            <widget class="QPushButton" name="pushButton_compFieldonIsoSurface">
+             <property name="text">
+              <string>Compute Field on Iso-surface</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QPushButton" name="pushButton_changeOrder">
+             <property name="text">
+              <string>Flip order</string>
+             </property>
+            </widget>
+           </item>
+          </layout>
+         </item>
+         <item>
+          <layout class="QHBoxLayout" name="horizontalLayout_5">
+           <item>
+            <widget class="QLabel" name="LayerIndexLabel">
+             <property name="text">
+              <string>Draw Layer Below:</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QSpinBox" name="IsoLayerIndex">
+             <property name="maximum">
+              <number>300</number>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QRadioButton" name="VisualSingleLayerButtom">
+             <property name="text">
+              <string>Draw Single</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QPushButton" name="pushButton_viewallLayerandOffset">
+             <property name="text">
+              <string>Draw All</string>
+             </property>
+            </widget>
+           </item>
+          </layout>
+         </item>
+         <item>
+          <layout class="QHBoxLayout" name="horizontalLayout_7">
+           <item>
+            <widget class="QPushButton" name="pushButton_outputIsoLayer">
+             <property name="text">
+              <string>Layer Below:</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QSpinBox" name="outputLayerIndexNum">
+             <property name="accelerated">
+              <bool>true</bool>
+             </property>
+             <property name="maximum">
+              <number>999</number>
+             </property>
+             <property name="displayIntegerBase">
+              <number>10</number>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QCheckBox" name="checkBox_outputSingleLayer">
+             <property name="text">
+              <string>Siglie IO</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QCheckBox" name="checkBox_outputILayer_splitMode">
+             <property name="text">
+              <string>Split</string>
+             </property>
+             <property name="checked">
+              <bool>true</bool>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QCheckBox" name="checkBox_outputILayer_OFFMode">
+             <property name="text">
+              <string>.off</string>
+             </property>
+            </widget>
+           </item>
+          </layout>
+         </item>
+        </layout>
+       </widget>
+       <widget class="QWidget" name="tab_5">
+        <attribute name="title">
+         <string>Fabrication</string>
+        </attribute>
+        <layout class="QVBoxLayout" name="verticalLayout_7">
+         <item>
+          <layout class="QHBoxLayout" name="horizontalLayout_27">
+           <item>
+            <widget class="QPushButton" name="pushButton_fabricationDirection">
+             <property name="text">
+              <string>Fabrication Direction</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QCheckBox" name="checkBox_3DrotateInverse">
+             <property name="text">
+              <string>Inverse (3d)</string>
+             </property>
+            </widget>
+           </item>
+          </layout>
+         </item>
+         <item>
+          <layout class="QHBoxLayout" name="horizontalLayout_31">
+           <item>
+            <widget class="QCheckBox" name="checkBox_computeFabricationDirection">
+             <property name="text">
+              <string>Computed (2D/3D (a,b))</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QSpinBox" name="spinBox_ComputedAnlge">
+             <property name="maximum">
+              <number>360</number>
+             </property>
+             <property name="value">
+              <number>295</number>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QDoubleSpinBox" name="spinBox_ComputedAnlgeAlpha">
+             <property name="minimum">
+              <double>-1000.000000000000000</double>
+             </property>
+             <property name="maximum">
+              <double>1000.000000000000000</double>
+             </property>
+             <property name="value">
+              <double>230.000000000000000</double>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QDoubleSpinBox" name="spinBox_ComputedAnlgeBeta">
+             <property name="minimum">
+              <double>-10000.000000000000000</double>
+             </property>
+             <property name="maximum">
+              <double>10000.000000000000000</double>
+             </property>
+             <property name="value">
+              <double>130.000000000000000</double>
+             </property>
+            </widget>
+           </item>
+          </layout>
+         </item>
+         <item>
+          <layout class="QHBoxLayout" name="horizontalLayout_21">
+           <item>
+            <widget class="QPushButton" name="pushButton_supportingStructureDetection">
+             <property name="text">
+              <string>Support Region Detection</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QPushButton" name="pushButton_buildSupportNode">
+             <property name="text">
+              <string>Build support node</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QCheckBox" name="checkBox_saveSupportNode">
+             <property name="text">
+              <string>Save</string>
+             </property>
+            </widget>
+           </item>
+          </layout>
+         </item>
+         <item>
+          <layout class="QHBoxLayout" name="horizontalLayout_23">
+           <item>
+            <widget class="QPushButton" name="pushButton_selectSupportRegion">
+             <property name="text">
+              <string>Interactive S-region</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QCheckBox" name="checkBox_deselectSupportNode">
+             <property name="text">
+              <string>deselect SNode</string>
+             </property>
+             <property name="checked">
+              <bool>true</bool>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QCheckBox" name="checkBox_deselectSupportNode_byNode">
+             <property name="text">
+              <string>Init/Support</string>
+             </property>
+             <property name="checked">
+              <bool>true</bool>
+             </property>
+            </widget>
+           </item>
+          </layout>
+         </item>
+         <item>
+          <layout class="QHBoxLayout" name="horizontalLayout_28">
+           <item>
+            <widget class="QPushButton" name="pushButton_layerThickCompandDraw">
+             <property name="text">
+              <string>Compute Layer Thickness and Draw</string>
+             </property>
+            </widget>
+           </item>
+          </layout>
+         </item>
+         <item>
+          <layout class="QHBoxLayout" name="horizontalLayout_32">
+           <item>
+            <widget class="QPushButton" name="pushButton_checkCollision">
+             <property name="text">
+              <string>Check Collision</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QCheckBox" name="checkBox_CollisionUpdateLayer">
+             <property name="text">
+              <string>Rebuild Layer</string>
+             </property>
+            </widget>
+           </item>
+          </layout>
+         </item>
+         <item>
+          <widget class="QLabel" name="label_23">
+           <property name="text">
+            <string>--------------- Input support structure support mesh---------------</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <layout class="QHBoxLayout" name="horizontalLayout_26">
+           <item>
+            <widget class="QPushButton" name="pushButton_InputIsoLayerwithSupport">
+             <property name="text">
+              <string>input layer (S)</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QPushButton" name="pushButton_cutLayerbyConvexHull">
+             <property name="text">
+              <string>split mesh (C-HULL)</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QPushButton" name="pushButton_objtooff">
+             <property name="text">
+              <string>obj-&gt;off</string>
+             </property>
+            </widget>
+           </item>
+          </layout>
+         </item>
+         <item>
+          <layout class="QHBoxLayout" name="horizontalLayout_22">
+           <item>
+            <widget class="QPushButton" name="pushButton_fabricationSupportTetMesh">
+             <property name="text">
+              <string>Support mesh generation</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QPushButton" name="pushButton_fabricationSupportSurface">
+             <property name="text">
+              <string>Compute support surface</string>
+             </property>
+            </widget>
+           </item>
+          </layout>
+         </item>
+         <item>
+          <layout class="QHBoxLayout" name="horizontalLayout_25">
+           <item>
+            <widget class="QPushButton" name="pushButton_fabricationEffectSupportSurfaceDetection">
+             <property name="text">
+              <string>Delete non-important support region (iso-surface)</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QDoubleSpinBox" name="doubleSpinBox_supportNodeBoxSize">
+             <property name="value">
+              <double>1.500000000000000</double>
+             </property>
+            </widget>
+           </item>
+          </layout>
+         </item>
+        </layout>
+       </widget>
+       <widget class="QWidget" name="tab_2">
+        <attribute name="title">
+         <string>Tool Path</string>
+        </attribute>
+        <layout class="QVBoxLayout" name="verticalLayout_6">
+         <item>
+          <layout class="QHBoxLayout" name="horizontalLayout_11">
+           <item>
+            <widget class="QLabel" name="label_3">
+             <property name="text">
+              <string>Offset (mm)</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QDoubleSpinBox" name="doubleSpinBox_toolpathOffsetValue">
+             <property name="value">
+              <double>0.800000000000000</double>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QLabel" name="label_2">
+             <property name="text">
+              <string>Boundary Circle Num:</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QSpinBox" name="spinBox_bToolPath_Num">
+             <property name="value">
+              <number>3</number>
+             </property>
+            </widget>
+           </item>
+          </layout>
+         </item>
+         <item>
+          <layout class="QHBoxLayout" name="horizontalLayout_17">
+           <item>
+            <widget class="QLabel" name="label_4">
+             <property name="text">
+              <string>Max ZigZag gap distance (mm)</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QDoubleSpinBox" name="doubleSpinBox_maxGapDistance">
+             <property name="value">
+              <double>4.000000000000000</double>
+             </property>
+            </widget>
+           </item>
+          </layout>
+         </item>
+         <item>
+          <layout class="QHBoxLayout" name="horizontalLayout_18">
+           <item>
+            <widget class="QLabel" name="label_19">
+             <property name="text">
+              <string>Zigzag-bound connect dis (layer gap #)</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QDoubleSpinBox" name="doubleSpinBox_zigzagBoundConnectDistance">
+             <property name="value">
+              <double>1.700000000000000</double>
+             </property>
+            </widget>
+           </item>
+          </layout>
+         </item>
+         <item>
+          <layout class="QHBoxLayout" name="horizontalLayout_19">
+           <item>
+            <widget class="QLabel" name="label_12">
+             <property name="text">
+              <string>Boundary ToolPath shrink distance (mm)</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QDoubleSpinBox" name="doubleSpinBox_boundShrinkValue">
+             <property name="value">
+              <double>0.100000000000000</double>
+             </property>
+            </widget>
+           </item>
+          </layout>
+         </item>
+         <item>
+          <widget class="QLabel" name="label_22">
+           <property name="text">
+            <string>---------------------------------Parameter-------------------------------</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QPushButton" name="pushButton_runHeatMethod">
+           <property name="text">
+            <string>Run Heat Method (Boundary + Zigzag)</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <layout class="QHBoxLayout" name="horizontalLayout_29">
+           <item>
+            <widget class="QPushButton" name="pushButton_generateZigZagToolPath">
+             <property name="text">
+              <string>Heat Method tool-path</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QPushButton" name="pushButton_generateStressFieldToolPath">
+             <property name="text">
+              <string>Stress-Field tool-path</string>
+             </property>
+            </widget>
+           </item>
+          </layout>
+         </item>
+         <item>
+          <layout class="QHBoxLayout" name="horizontalLayout_30">
+           <item>
+            <widget class="QPushButton" name="pushButton_outputToolPath">
+             <property name="text">
+              <string>Output ToolPath</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QPushButton" name="pushButton_directToolPathGeneration">
+             <property name="text">
+              <string>Multi-toolpath Generation (new)</string>
+             </property>
+            </widget>
+           </item>
+          </layout>
+         </item>
+         <item>
+          <widget class="QLabel" name="label_21">
+           <property name="text">
+            <string>-----------Single ↑------------------------------Multiple ↓---------------</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QPushButton" name="pushButton_toolpathGenerationChecking">
+           <property name="text">
+            <string>Mesh Checking for Toolpath generation (layer set)</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <layout class="QHBoxLayout" name="horizontalLayout_14">
+           <item>
+            <widget class="QPushButton" name="pushButton_allLayerToolpathGenerate">
+             <property name="text">
+              <string>Generate toolpath for all layer and save</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QCheckBox" name="checkBox_cpuSpeedUpToolpathGeneration">
+             <property name="text">
+              <string>CPU SpeedUp</string>
+             </property>
+             <property name="checked">
+              <bool>true</bool>
+             </property>
+            </widget>
+           </item>
+          </layout>
+         </item>
+        </layout>
+       </widget>
+       <widget class="QWidget" name="tab">
+        <attribute name="title">
+         <string>Visual</string>
+        </attribute>
+        <layout class="QVBoxLayout" name="verticalLayout_4">
+         <item>
+          <widget class="QPushButton" name="pushButton_deselectAllinModelTree">
+           <property name="text">
+            <string>Deselect all in model tree</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <layout class="QHBoxLayout" name="horizontalLayout_24">
+           <item>
+            <widget class="QPushButton" name="pushButton_scaleModelSize">
+             <property name="text">
+              <string>Scale Model</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QDoubleSpinBox" name="doubleSpinBox_modelScaleFactor">
+             <property name="value">
+              <double>0.750000000000000</double>
+             </property>
+            </widget>
+           </item>
+          </layout>
+         </item>
+         <item>
+          <widget class="QPushButton" name="pushButton_heatMethodTest">
+           <property name="text">
+            <string>heatMethodBoundaryField</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <layout class="QHBoxLayout" name="horizontalLayout_3">
+           <item>
+            <widget class="QLabel" name="maxValue">
+             <property name="text">
+              <string>Max Value = 0</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QSlider" name="maximumValue">
+             <property name="orientation">
+              <enum>Qt::Horizontal</enum>
+             </property>
+            </widget>
+           </item>
+          </layout>
+         </item>
+         <item>
+          <layout class="QHBoxLayout" name="horizontalLayout_2">
+           <item>
+            <widget class="QLabel" name="minValue">
+             <property name="layoutDirection">
+              <enum>Qt::LeftToRight</enum>
+             </property>
+             <property name="text">
+              <string> Min Value = 0</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QSlider" name="minimumValue">
+             <property name="orientation">
+              <enum>Qt::Horizontal</enum>
+             </property>
+            </widget>
+           </item>
+          </layout>
+         </item>
+         <item>
+          <layout class="QHBoxLayout" name="horizontalLayout_10">
+           <item>
+            <widget class="QLabel" name="label_14">
+             <property name="text">
+              <string>Laplace Weight</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QLineEdit" name="LaplaceWeight">
+             <property name="text">
+              <string>0.01</string>
+             </property>
+            </widget>
+           </item>
+          </layout>
+         </item>
+         <item>
+          <widget class="QPushButton" name="pushButton_tetraDelete">
+           <property name="text">
+            <string>Delete inner tetrahderal (hollowing)</string>
+           </property>
+          </widget>
+         </item>
+        </layout>
+       </widget>
+       <widget class="QWidget" name="tab_4">
+        <attribute name="title">
+         <string>Voxel</string>
+        </attribute>
+        <layout class="QVBoxLayout" name="verticalLayout_5">
+         <item>
+          <widget class="QPushButton" name="pushButton_volumetoSurface">
+           <property name="text">
+            <string>Transfer volume mesh to surface mesh</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <layout class="QHBoxLayout" name="horizontalLayout_20">
+           <item>
+            <widget class="QLabel" name="label_9">
+             <property name="text">
+              <string>Voxel Width</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QDoubleSpinBox" name="doubleSpinBox_voxelWidth">
+             <property name="singleStep">
+              <double>0.100000000000000</double>
+             </property>
+             <property name="value">
+              <double>1.000000000000000</double>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QLabel" name="label_10">
+             <property name="text">
+              <string>Voxel Exbanding</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QSpinBox" name="spinBox_expandingLayer">
+             <property name="minimum">
+              <number>-1</number>
+             </property>
+             <property name="maximum">
+              <number>10</number>
+             </property>
+             <property name="value">
+              <number>4</number>
+             </property>
+            </widget>
+           </item>
+          </layout>
+         </item>
+         <item>
+          <widget class="QPushButton" name="pushButton_GenerateVoxel">
+           <property name="text">
+            <string>Generation Voxel</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QLabel" name="label_8">
+           <property name="text">
+            <string>M1: Convex Peeling</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QLabel" name="label_15">
+           <property name="text">
+            <string>M2: Peeling-Field Guide Growing (Recommand)</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QLabel" name="label_16">
+           <property name="text">
+            <string>M3: Convex-front Growing; M4: with Platform</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QLabel" name="label_17">
+           <property name="text">
+            <string>M5: Convex-front Growing + Shadow Prevention</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <layout class="QHBoxLayout" name="horizontalLayout_8">
+           <item>
+            <widget class="QPushButton" name="pushButton_voxelLayerGeneration">
+             <property name="enabled">
+              <bool>false</bool>
+             </property>
+             <property name="text">
+              <string>Order Generation by Method:</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QSpinBox" name="spinBox_VoxelGenerateMethod">
+             <property name="minimum">
+              <number>1</number>
+             </property>
+             <property name="maximum">
+              <number>6</number>
+             </property>
+             <property name="value">
+              <number>2</number>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QCheckBox" name="checkBox_loadPlatform">
+             <property name="text">
+              <string>Input Platform</string>
+             </property>
+             <property name="checked">
+              <bool>true</bool>
+             </property>
+            </widget>
+           </item>
+          </layout>
+         </item>
+         <item>
+          <layout class="QHBoxLayout" name="horizontalLayout_9">
+           <item>
+            <widget class="QLabel" name="label_18">
+             <property name="text">
+              <string>View Voxel Layer:</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QSpinBox" name="spinBox_voxelLayer">
+             <property name="enabled">
+              <bool>true</bool>
+             </property>
+             <property name="accelerated">
+              <bool>false</bool>
+             </property>
+             <property name="showGroupSeparator" stdset="0">
+              <bool>false</bool>
+             </property>
+             <property name="minimum">
+              <number>-1</number>
+             </property>
+             <property name="maximum">
+              <number>300</number>
+             </property>
+             <property name="value">
+              <number>0</number>
+             </property>
+             <property name="displayIntegerBase">
+              <number>10</number>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QPushButton" name="pushButton_saveVoxelOrder">
+             <property name="text">
+              <string>Save order</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QPushButton" name="pushButton_loadVoxelOrder">
+             <property name="text">
+              <string>Load  order</string>
+             </property>
+            </widget>
+           </item>
+          </layout>
+         </item>
+         <item>
+          <widget class="QLabel" name="label_6">
+           <property name="minimumSize">
+            <size>
+             <width>0</width>
+             <height>10</height>
+            </size>
+           </property>
+           <property name="maximumSize">
+            <size>
+             <width>16777215</width>
+             <height>10</height>
+            </size>
+           </property>
+           <property name="text">
+            <string>-----------------------------------------------------------------------------</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QPushButton" name="pushButton_isoFacefromVoxelLayer">
+           <property name="text">
+            <string> Voxel Order -&gt; Tetrahedral Scalar Field</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QPushButton" name="pushButton_translateTetrahedraltoVoxel">
+           <property name="text">
+            <string>Tetrahedral Scalar Field -&gt;  Voxel Order</string>
+           </property>
+          </widget>
+         </item>
+        </layout>
+       </widget>
+      </widget>
+     </item>
+     <item>
+      <widget class="QFrame" name="frame_modelTree">
+       <property name="maximumSize">
+        <size>
+         <width>16777215</width>
+         <height>400</height>
+        </size>
+       </property>
+       <property name="frameShape">
+        <enum>QFrame::StyledPanel</enum>
+       </property>
+       <property name="frameShadow">
+        <enum>QFrame::Raised</enum>
+       </property>
+       <layout class="QVBoxLayout" name="verticalLayout">
+        <item>
+         <widget class="QLabel" name="label">
+          <property name="text">
+           <string>Model Tree</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QTreeView" name="treeView">
+          <property name="enabled">
+           <bool>true</bool>
+          </property>
+          <property name="maximumSize">
+           <size>
+            <width>16777215</width>
+            <height>150</height>
+           </size>
+          </property>
+          <property name="showDropIndicator" stdset="0">
+           <bool>true</bool>
+          </property>
+          <property name="indentation">
+           <number>5</number>
+          </property>
+          <attribute name="headerVisible">
+           <bool>false</bool>
+          </attribute>
+         </widget>
+        </item>
+        <item>
+         <widget class="QLabel" name="label_5">
+          <property name="text">
+           <string>System Dialog</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QTextEdit" name="SystemDialog">
+          <property name="maximumSize">
+           <size>
+            <width>16777215</width>
+            <height>200</height>
+           </size>
+          </property>
+          <property name="verticalScrollBarPolicy">
+           <enum>Qt::ScrollBarAlwaysOn</enum>
+          </property>
+          <property name="horizontalScrollBarPolicy">
+           <enum>Qt::ScrollBarAlwaysOff</enum>
+          </property>
+          <property name="sizeAdjustPolicy">
+           <enum>QAbstractScrollArea::AdjustIgnored</enum>
+          </property>
+          <property name="readOnly">
+           <bool>true</bool>
+          </property>
+         </widget>
+        </item>
+       </layout>
+      </widget>
+     </item>
+     <item>
+      <widget class="QPushButton" name="pushButton_clearAll">
+       <property name="text">
+        <string>Clear All</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QPushButton" name="pushButton_closewindow">
+       <property name="text">
+        <string>Close program</string>
+       </property>
+      </widget>
+     </item>
+    </layout>
+   </widget>
+  </widget>
+  <widget class="QMenuBar" name="menuBar">
+   <property name="geometry">
+    <rect>
+     <x>0</x>
+     <y>0</y>
+     <width>1450</width>
+     <height>21</height>
+    </rect>
+   </property>
+   <property name="layoutDirection">
+    <enum>Qt::LeftToRight</enum>
+   </property>
+   <widget class="QMenu" name="menuFile">
+    <property name="title">
+     <string>File</string>
+    </property>
+    <addaction name="actionOpen"/>
+    <addaction name="actionSave"/>
+    <addaction name="actionSaveSelection"/>
+    <addaction name="actionReadSelection"/>
+   </widget>
+   <widget class="QMenu" name="menuView">
+    <property name="title">
+     <string>View</string>
+    </property>
+    <widget class="QMenu" name="menuFace_Node_shade">
+     <property name="title">
+      <string>Face / Node shade</string>
+     </property>
+     <addaction name="actionFaceNormalShade"/>
+     <addaction name="actionNodeNormalShade"/>
+    </widget>
+    <addaction name="actionFront"/>
+    <addaction name="actionBack"/>
+    <addaction name="actionTop"/>
+    <addaction name="actionBottom"/>
+    <addaction name="actionLeft"/>
+    <addaction name="actionRight"/>
+    <addaction name="actionIsometric"/>
+    <addaction name="separator"/>
+    <addaction name="actionZoom_In"/>
+    <addaction name="actionZoom_Out"/>
+    <addaction name="actionZoom_All"/>
+    <addaction name="actionZoom_Window"/>
+    <addaction name="separator"/>
+    <addaction name="actionMesh"/>
+    <addaction name="actionNode"/>
+    <addaction name="actionProfile"/>
+    <addaction name="actionShade"/>
+    <addaction name="menuFace_Node_shade"/>
+    <addaction name="separator"/>
+    <addaction name="actionShifttoOrigin"/>
+   </widget>
+   <widget class="QMenu" name="menuSelect">
+    <property name="title">
+     <string>Select</string>
+    </property>
+    <addaction name="actionSelectNode"/>
+    <addaction name="actionSelectEdge"/>
+    <addaction name="actionSelectFace"/>
+    <addaction name="separator"/>
+    <addaction name="actionSelectFix"/>
+    <addaction name="actionSelectHandle"/>
+    <addaction name="separator"/>
+   </widget>
+   <widget class="QMenu" name="menuFunction">
+    <property name="title">
+     <string>Function</string>
+    </property>
+    <addaction name="actionExport_to_Abaqus_model"/>
+    <addaction name="actionInputFEM"/>
+   </widget>
+   <addaction name="menuFile"/>
+   <addaction name="menuView"/>
+   <addaction name="menuSelect"/>
+   <addaction name="menuFunction"/>
+  </widget>
+  <widget class="QToolBar" name="toolBar">
+   <property name="windowTitle">
+    <string>toolBar</string>
+   </property>
+   <property name="movable">
+    <bool>false</bool>
+   </property>
+   <property name="floatable">
+    <bool>false</bool>
+   </property>
+   <attribute name="toolBarArea">
+    <enum>TopToolBarArea</enum>
+   </attribute>
+   <attribute name="toolBarBreak">
+    <bool>false</bool>
+   </attribute>
+   <addaction name="actionOpen"/>
+   <addaction name="actionSave"/>
+   <addaction name="actionExport_to_Abaqus_model"/>
+   <addaction name="actionInputFEM"/>
+  </widget>
+  <action name="actionOpen">
+   <property name="icon">
+    <iconset resource="ShapeLab.qrc">
+     <normaloff>:/resource/Open Folder.png</normaloff>:/resource/Open Folder.png</iconset>
+   </property>
+   <property name="text">
+    <string>Open</string>
+   </property>
+  </action>
+  <action name="actionFront">
+   <property name="checkable">
+    <bool>false</bool>
+   </property>
+   <property name="icon">
+    <iconset resource="ShapeLab.qrc">
+     <normaloff>:/resource/Front View.png</normaloff>:/resource/Front View.png</iconset>
+   </property>
+   <property name="text">
+    <string>Front</string>
+   </property>
+  </action>
+  <action name="actionBack">
+   <property name="checkable">
+    <bool>false</bool>
+   </property>
+   <property name="icon">
+    <iconset resource="ShapeLab.qrc">
+     <normaloff>:/resource/Back View.png</normaloff>:/resource/Back View.png</iconset>
+   </property>
+   <property name="text">
+    <string>Back</string>
+   </property>
+  </action>
+  <action name="actionTop">
+   <property name="checkable">
+    <bool>false</bool>
+   </property>
+   <property name="icon">
+    <iconset resource="ShapeLab.qrc">
+     <normaloff>:/resource/Top View.png</normaloff>:/resource/Top View.png</iconset>
+   </property>
+   <property name="text">
+    <string>Top</string>
+   </property>
+  </action>
+  <action name="actionBottom">
+   <property name="checkable">
+    <bool>false</bool>
+   </property>
+   <property name="icon">
+    <iconset resource="ShapeLab.qrc">
+     <normaloff>:/resource/Bottom View.png</normaloff>:/resource/Bottom View.png</iconset>
+   </property>
+   <property name="text">
+    <string>Bottom</string>
+   </property>
+  </action>
+  <action name="actionLeft">
+   <property name="icon">
+    <iconset resource="ShapeLab.qrc">
+     <normaloff>:/resource/Left View.png</normaloff>:/resource/Left View.png</iconset>
+   </property>
+   <property name="text">
+    <string>Left</string>
+   </property>
+  </action>
+  <action name="actionRight">
+   <property name="icon">
+    <iconset resource="ShapeLab.qrc">
+     <normaloff>:/resource/Right View.png</normaloff>:/resource/Right View.png</iconset>
+   </property>
+   <property name="text">
+    <string>Right</string>
+   </property>
+  </action>
+  <action name="actionIsometric">
+   <property name="icon">
+    <iconset resource="ShapeLab.qrc">
+     <normaloff>:/resource/Isometric View.png</normaloff>:/resource/Isometric View.png</iconset>
+   </property>
+   <property name="text">
+    <string>Isometric</string>
+   </property>
+  </action>
+  <action name="actionZoom_In">
+   <property name="icon">
+    <iconset resource="ShapeLab.qrc">
+     <normaloff>:/resource/Zoom In.png</normaloff>:/resource/Zoom In.png</iconset>
+   </property>
+   <property name="text">
+    <string>Zoom In</string>
+   </property>
+  </action>
+  <action name="actionZoom_Out">
+   <property name="icon">
+    <iconset resource="ShapeLab.qrc">
+     <normaloff>:/resource/Zoom Out.png</normaloff>:/resource/Zoom Out.png</iconset>
+   </property>
+   <property name="text">
+    <string>Zoom Out</string>
+   </property>
+  </action>
+  <action name="actionZoom_All">
+   <property name="icon">
+    <iconset resource="ShapeLab.qrc">
+     <normaloff>:/resource/Zoom All.png</normaloff>:/resource/Zoom All.png</iconset>
+   </property>
+   <property name="text">
+    <string>Zoom All</string>
+   </property>
+  </action>
+  <action name="actionZoom_Window">
+   <property name="icon">
+    <iconset resource="ShapeLab.qrc">
+     <normaloff>:/resource/Zoom Window.png</normaloff>:/resource/Zoom Window.png</iconset>
+   </property>
+   <property name="text">
+    <string>Zoom Window</string>
+   </property>
+  </action>
+  <action name="actionShade">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="icon">
+    <iconset resource="ShapeLab.qrc">
+     <normaloff>:/resource/Shade.png</normaloff>:/resource/Shade.png</iconset>
+   </property>
+   <property name="text">
+    <string>Shade</string>
+   </property>
+  </action>
+  <action name="actionMesh">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="icon">
+    <iconset resource="ShapeLab.qrc">
+     <normaloff>:/resource/Mesh.png</normaloff>:/resource/Mesh.png</iconset>
+   </property>
+   <property name="text">
+    <string>Mesh</string>
+   </property>
+  </action>
+  <action name="actionNode">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="icon">
+    <iconset resource="ShapeLab.qrc">
+     <normaloff>:/resource/Node.png</normaloff>:/resource/Node.png</iconset>
+   </property>
+   <property name="text">
+    <string>Node</string>
+   </property>
+  </action>
+  <action name="actionSave">
+   <property name="icon">
+    <iconset resource="ShapeLab.qrc">
+     <normaloff>:/resource/Save as.png</normaloff>:/resource/Save as.png</iconset>
+   </property>
+   <property name="text">
+    <string>Save</string>
+   </property>
+  </action>
+  <action name="actionSelectNode">
+   <property name="icon">
+    <iconset resource="ShapeLab.qrc">
+     <normaloff>:/resource/selectNode.png</normaloff>:/resource/selectNode.png</iconset>
+   </property>
+   <property name="text">
+    <string>Node</string>
+   </property>
+  </action>
+  <action name="actionSelectFace">
+   <property name="icon">
+    <iconset resource="ShapeLab.qrc">
+     <normaloff>:/resource/selectFace.png</normaloff>:/resource/selectFace.png</iconset>
+   </property>
+   <property name="text">
+    <string>Face</string>
+   </property>
+  </action>
+  <action name="actionShifttoOrigin">
+   <property name="text">
+    <string>Shift to Origin</string>
+   </property>
+  </action>
+  <action name="actionProfile">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="icon">
+    <iconset resource="ShapeLab.qrc">
+     <normaloff>:/resource/Profile.png</normaloff>:/resource/Profile.png</iconset>
+   </property>
+   <property name="text">
+    <string>Profile</string>
+   </property>
+  </action>
+  <action name="actionFaceNormal">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="icon">
+    <iconset resource="ShapeLab.qrc">
+     <normaloff>:/resource/FaceNormal.png</normaloff>:/resource/FaceNormal.png</iconset>
+   </property>
+   <property name="text">
+    <string>FaceNormal</string>
+   </property>
+  </action>
+  <action name="actionNodeNormal">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="icon">
+    <iconset resource="ShapeLab.qrc">
+     <normaloff>:/resource/NodeNormal.png</normaloff>:/resource/NodeNormal.png</iconset>
+   </property>
+   <property name="text">
+    <string>NodeNormal</string>
+   </property>
+  </action>
+  <action name="actionSelectEdge">
+   <property name="icon">
+    <iconset resource="ShapeLab.qrc">
+     <normaloff>:/resource/selectEdge.png</normaloff>:/resource/selectEdge.png</iconset>
+   </property>
+   <property name="text">
+    <string>Edge</string>
+   </property>
+  </action>
+  <action name="actionGenerate">
+   <property name="text">
+    <string>Generate</string>
+   </property>
+  </action>
+  <action name="actionTest_1">
+   <property name="text">
+    <string>Test_1</string>
+   </property>
+  </action>
+  <action name="actionSelectFix">
+   <property name="icon">
+    <iconset resource="ShapeLab.qrc">
+     <normaloff>:/resource/selectFix.png</normaloff>:/resource/selectFix.png</iconset>
+   </property>
+   <property name="text">
+    <string>Fix</string>
+   </property>
+  </action>
+  <action name="actionSelectHandle">
+   <property name="icon">
+    <iconset resource="ShapeLab.qrc">
+     <normaloff>:/resource/selectHandle.png</normaloff>:/resource/selectHandle.png</iconset>
+   </property>
+   <property name="text">
+    <string>Handle / Rigid</string>
+   </property>
+   <property name="iconText">
+    <string>Handle /  Rigid</string>
+   </property>
+  </action>
+  <action name="actionSaveSelection">
+   <property name="icon">
+    <iconset resource="ShapeLab.qrc">
+     <normaloff>:/resource/SaveSelection.png</normaloff>:/resource/SaveSelection.png</iconset>
+   </property>
+   <property name="text">
+    <string>Save selection</string>
+   </property>
+  </action>
+  <action name="actionReadSelection">
+   <property name="icon">
+    <iconset resource="ShapeLab.qrc">
+     <normaloff>:/resource/InputSelection.png</normaloff>:/resource/InputSelection.png</iconset>
+   </property>
+   <property name="text">
+    <string>Read selection</string>
+   </property>
+  </action>
+  <action name="actionSelectChamber">
+   <property name="text">
+    <string>Select Chamber (SORO)</string>
+   </property>
+  </action>
+  <action name="actionExport_to_Abaqus_model">
+   <property name="checkable">
+    <bool>false</bool>
+   </property>
+   <property name="icon">
+    <iconset resource="ShapeLab.qrc">
+     <normaloff>:/resource/abaqus logo.png</normaloff>:/resource/abaqus logo.png</iconset>
+   </property>
+   <property name="text">
+    <string>Export to Abaqus model</string>
+   </property>
+  </action>
+  <action name="actionShape_Up_Mesh_Deformation">
+   <property name="text">
+    <string>Shape-Up Mesh Deformation</string>
+   </property>
+  </action>
+  <action name="actionInputFEM">
+   <property name="icon">
+    <iconset resource="ShapeLab.qrc">
+     <normaloff>:/resource/FEM.png</normaloff>:/resource/FEM.png</iconset>
+   </property>
+   <property name="text">
+    <string>Input FEM analysis result</string>
+   </property>
+  </action>
+  <action name="actionFaceNormalShade">
+   <property name="text">
+    <string>Face normal</string>
+   </property>
+  </action>
+  <action name="actionNodeNormalShade">
+   <property name="text">
+    <string>Node normal</string>
+   </property>
+  </action>
+  <action name="actionGeoField_boundary">
+   <property name="text">
+    <string>Boundary distance Field</string>
+   </property>
+  </action>
+  <action name="actionGeoField_directional">
+   <property name="text">
+    <string>Directional distance Field</string>
+   </property>
+  </action>
+  <action name="actionGeoField_selection">
+   <property name="text">
+    <string>By selection</string>
+   </property>
+  </action>
+  <action name="action_GenerateTrajectory">
+   <property name="text">
+    <string>Generate Trajectory</string>
+   </property>
+  </action>
+ </widget>
+ <layoutdefault spacing="6" margin="11"/>
+ <resources>
+  <include location="ShapeLab.qrc"/>
+ </resources>
+ <connections>
+  <connection>
+   <sender>pushButton_closewindow</sender>
+   <signal>clicked()</signal>
+   <receiver>MainWindow</receiver>
+   <slot>close()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>910</x>
+     <y>866</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>675</x>
+     <y>859</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>SystemDialog</sender>
+   <signal>textChanged()</signal>
+   <receiver>MainWindow</receiver>
+   <slot>autoScroll()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>958</x>
+     <y>664</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>709</x>
+     <y>635</y>
+    </hint>
+   </hints>
+  </connection>
+ </connections>
+ <slots>
+  <slot>autoScroll()</slot>
+ </slots>
+</ui>

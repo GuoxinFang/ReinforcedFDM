@@ -1,0 +1,253 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Generated Files">
+      <UniqueIdentifier>{71ED8ED8-ACB9-4CE9-BBE1-E00B30144E11}</UniqueIdentifier>
+      <Extensions>cpp;c;cxx;moc;h;def;odl;idl;res;</Extensions>
+    </Filter>
+    <Filter Include="Generated Files">
+      <UniqueIdentifier>{71ED8ED8-ACB9-4CE9-BBE1-E00B30144E11}</UniqueIdentifier>
+      <Extensions>cpp;c;cxx;moc;h;def;odl;idl;res;</Extensions>
+    </Filter>
+    <Filter Include="Header Files">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hpp;hxx;hm;inl;inc;xsd</Extensions>
+    </Filter>
+    <Filter Include="Header Files">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hpp;hxx;hm;inl;inc;xsd</Extensions>
+    </Filter>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="PQPLib">
+      <UniqueIdentifier>{b494fdd4-5cef-4356-b887-4d343a6dc68a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="QHull">
+      <UniqueIdentifier>{762a37f3-da79-4d9b-ba0e-a25e1d45d34f}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="BSPTree.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="BSPTreeOperation.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="BSTree.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="PMBody.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="PolygenMesh.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="QMeshCluster.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="QMeshEdge.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="QMeshFace.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="QMeshNode.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="QMeshPatch.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="QMeshTetra.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="QMeshVoxel.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="QMeshVoxelOperation.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Library\QHull\geom.cpp">
+      <Filter>QHull</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Library\QHull\geom2.cpp">
+      <Filter>QHull</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Library\QHull\global.cpp">
+      <Filter>QHull</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Library\QHull\io.cpp">
+      <Filter>QHull</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Library\QHull\men.cpp">
+      <Filter>QHull</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Library\QHull\merge.cpp">
+      <Filter>QHull</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Library\QHull\poly.cpp">
+      <Filter>QHull</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Library\QHull\poly2.cpp">
+      <Filter>QHull</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Library\QHull\qconvex.cpp">
+      <Filter>QHull</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Library\QHull\qhull.cpp">
+      <Filter>QHull</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Library\QHull\qset.cpp">
+      <Filter>QHull</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Library\QHull\rbox.cpp">
+      <Filter>QHull</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Library\QHull\stat.cpp">
+      <Filter>QHull</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Library\QHull\user.cpp">
+      <Filter>QHull</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Library\PQPLib\Build.cpp">
+      <Filter>PQPLib</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Library\PQPLib\BV.cpp">
+      <Filter>PQPLib</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Library\PQPLib\PQP.cpp">
+      <Filter>PQPLib</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Library\PQPLib\TriDist.cpp">
+      <Filter>PQPLib</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="BSPTree.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="BSPTreeOperation.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="BSTree.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="PMBody.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="PolygenMesh.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="QMeshCluster.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="QMeshEdge.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="QMeshFace.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="QMeshNode.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="QMeshPatch.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="QMeshTetra.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="QMeshVoxel.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="QMeshVoxelOperation.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Library\QHull\geom.h">
+      <Filter>QHull</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Library\QHull\io.h">
+      <Filter>QHull</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Library\QHull\mem.h">
+      <Filter>QHull</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Library\QHull\merge.h">
+      <Filter>QHull</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Library\QHull\poly.h">
+      <Filter>QHull</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Library\QHull\qhull.h">
+      <Filter>QHull</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Library\QHull\qhull_a.h">
+      <Filter>QHull</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Library\QHull\qset.h">
+      <Filter>QHull</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Library\QHull\stat.h">
+      <Filter>QHull</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Library\QHull\user.h">
+      <Filter>QHull</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Library\PQPLib\Build.h">
+      <Filter>PQPLib</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Library\PQPLib\BV.h">
+      <Filter>PQPLib</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Library\PQPLib\BVTQ.h">
+      <Filter>PQPLib</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Library\PQPLib\GetTime.h">
+      <Filter>PQPLib</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Library\PQPLib\MatVec.h">
+      <Filter>PQPLib</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Library\PQPLib\OBB_Disjoint.h">
+      <Filter>PQPLib</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Library\PQPLib\PQP.h">
+      <Filter>PQPLib</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Library\PQPLib\PQP_Compile.h">
+      <Filter>PQPLib</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Library\PQPLib\PQP_Internal.h">
+      <Filter>PQPLib</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Library\PQPLib\RectDist.h">
+      <Filter>PQPLib</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Library\PQPLib\Tri.h">
+      <Filter>PQPLib</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Library\PQPLib\TriDist.h">
+      <Filter>PQPLib</Filter>
+    </ClInclude>
+    <ClInclude Include="convhull_3d.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <CustomBuild Include="debug\moc_predefs.h.cbt">
+      <Filter>Generated Files</Filter>
+    </CustomBuild>
+    <CustomBuild Include="release\moc_predefs.h.cbt">
+      <Filter>Generated Files</Filter>
+    </CustomBuild>
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="..\Library\PQPLib\ReadMe.txt">
+      <Filter>PQPLib</Filter>
+    </Text>
+  </ItemGroup>
+</Project>
