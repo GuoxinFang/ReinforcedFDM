@@ -35,7 +35,7 @@ MacOS: QT Creator
 
 **First input tetrahedral mesh into the system.**
 
-Two sample model is given 'Bunnyhead.tet' and 'topopt_new.tet'. You can either drag the file into the blank area of the UI or open the panel "file -> open".
+Two sample models are given 'Bunnyhead.tet' and 'topopt_new.tet'. You can either drag the file into the blank area of the UI or open the panel "file -> open" and then select the model.
 
 **Step 1: Input FEA simulation result** and compute principle stress direction as vector field by clicking bottom 'Step 1: Input FEA Result'.
 
@@ -43,7 +43,7 @@ Two sample model is given 'Bunnyhead.tet' and 'topopt_new.tet'. You can either d
 
 - You can also change the percentage of the critical region by changing the value below 'Step 1: Input FEA Result' bottom and click 'Change ratio' to redraw the field. Notice the parameter used in our paper is already set as the initial value in UI.
 
-**Step 2: Compute Field** (for both vector field and scalar field) by clicking bottom 'Step 2: Field Computing'. This process may take some time.
+**Step 2: Compute Field** (for both vector field and scalar field) by clicking bottom 'Step 2: Field Computing'. This process may take some time to compute the optimized field.
 
 - After finish computing the field, you can draw the scalar field at by using function "View -> Node" or direct click the "Node" bottom.
 
@@ -56,3 +56,30 @@ Two sample model is given 'Bunnyhead.tet' and 'topopt_new.tet'. You can either d
 **Step 4: Compute vector field on each curved surface (for toolpath generation)** by clicking ' Step 4: Compute Field on Iso-Surface'.
 
 - **Caution:** Before run this process, please make sure you disable the drawing of profile, otherwise the system will automatic draw the vector field on every layer (may take 1 min to draw this)!
+
+**Step 5: Split and output generated curved surface** by clicking ' Step 5: Output Layer Below'. The curved surface will be installed at folder "./model/IsoSurface/ModelName/"
+
+- This function will also split the surface into single piece. For example, if one layer (No. 10) contains three region, our code will output three .obj file named as 1000.obj, 1001.obj and 1002.obj. 
+You can output the entire surface without split by decelect the checkbox 'split', however this will bring error to the final toolpath generation.
+
+**Step 6: Toolpath Generation** by clicking 'Step 6: Multi-toolpath Generation (New)'.
+
+- This process will take quiet long time as each layer will be first load into the system, compute scalar field & boundary distance field, and substract the hybird stress-aligned curved toolpath.
+Please make sure you enable OpenMP to accelerate the computing process. Normally it takes **2-3 mins** to run the top-opt model on a 6-Core Intel CPU.
+By opening the Console you can also check the progress during the computing.
+
+- This process will also take more than 8GB memory on your PC for the top-opt model, please make sure you have at least 16GB RAM to get best performance.
+
+- After finish computing the toolpath, please enable drawing the toolpath by using function "View -> Edge" or direct click the "Edge" bottom.
+you will also see all the toolpath as a mesh visulized in 'Model tree' panel. In 'Visual' panel, you can click the bottom "Deselect all in model tree" and then select the layer you want to draw by click it in Model tree.
+
+- Generated toolpath will be output in folder "./model/IsoSurface/'your-model-name'/toolpath/" as txt file. The toolpath is represneted as waypoints in format "x,y,z,nx,ny,nz".
+
+## Preprocess toolpath for fabrication
+
+- The code for fabrication enabling part in our paper is still under construction ......
+
+- For the processing of the waypoint to finally fabricate the model and do motion planning of the machine, please refer to our work (also with [Source Code](https://github.com/zhangty019/MultiAxis_3DP_MotionPlanning)):
+
+[*Singularity-Aware Motion Planning for Multi-Axis Additive Manufacturing*](https://ieeexplore.ieee.org/document/9462416)
+by Tianyu Zhang, Xiangjia Chen, Guoxin Fang, Yingjun Tian and Charlie C.L. Wang.
