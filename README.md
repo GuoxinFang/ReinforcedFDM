@@ -75,11 +75,12 @@ you will also see all the toolpath as a mesh visulized in 'Model tree' panel. In
 
 - Generated toolpath will be output in folder "./model/IsoSurface/'your-model-name'/toolpath/" as txt file. The toolpath is represneted as waypoints in format "x,y,z,nx,ny,nz".
 
-## Preprocess toolpath for fabrication
+## Fabrication Enabling
 
-- The code for fabrication enabling part in our paper is still under construction ......
+- The code for fabrication enabling part in our work is still under construction ......
 
-- For the processing of the waypoint to finally fabricate the model and do motion planning of the machine, please refer to our work (also with [Source Code](https://github.com/zhangty019/MultiAxis_3DP_MotionPlanning)):
+- Please check the details of processing the waypoint and run motion planning of the multi-axis 3D printer in our latest work (also with [Source Code](https://github.com/zhangty019/MultiAxis_3DP_MotionPlanning)):
 
 [*Singularity-Aware Motion Planning for Multi-Axis Additive Manufacturing*](https://ieeexplore.ieee.org/document/9462416)
-by Tianyu Zhang, Xiangjia Chen, Guoxin Fang, Yingjun Tian and Charlie C.L. Wang.
+
+*Tianyu Zhang, Xiangjia Chen, Guoxin Fang, Yingjun Tian and Charlie C.L. Wang. IEEE Robotics and Automation Letters, Presented at IEEE International Conference on Automation Science and Engineering (CASE 2021), Lyon, France, August 23-27, 2021*
