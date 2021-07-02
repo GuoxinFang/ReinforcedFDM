@@ -1,4 +1,4 @@
-# Reinforced FDM: Multi-Axis Filament Alignment with Controlled Anisotropic Strength
+[# Reinforced FDM: Multi-Axis Filament Alignment with Controlled Anisotropic Strength](https://guoxinfang.github.io/ReinforcedFDM.html)
 
 ![](Library/framework.jpg)
 
