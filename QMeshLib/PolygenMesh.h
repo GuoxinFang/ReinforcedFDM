@@ -90,6 +90,8 @@ public:
     void _changeValueToColor(int nType, float & nRed, float & nGreen, float & nBlue);
     void _changeValueToColor(double maxValue, double minValue, double Value,
                                  float & nRed, float & nGreen, float & nBlue);
+    void _changeValueToColorGray(double maxValue, double minValue, double Value,
+        float& nRed, float& nGreen, float& nBlue);
 
     void setModelName(std::string name) {modelName=name;};
 	std::string getModelName() { return modelName; };

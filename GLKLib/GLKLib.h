@@ -71,7 +71,7 @@ public:
     QVector<QPoint> m_drawLine;
     void draw_line_2d();
 
-    GLubyte* GetColorImage(QMeshPatch *Patch, int w, int h, double *range, double *centroid);
+    //GLubyte* GetColorImage(QMeshPatch *Patch, int w, int h, double *range, double *centroid);
 
 public:
     float m_MappingScale;

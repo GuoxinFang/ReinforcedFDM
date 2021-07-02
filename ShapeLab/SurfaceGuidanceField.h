@@ -8,6 +8,10 @@ public:
 	~SurfaceGuidanceField() { };
 
 	void runIsoLayerVectorFielCompute(QMeshPatch* isoSurface, int layerIndex);
+	bool scalarFieldCompute_isoSurface(QMeshPatch* layer);
+	void scalarFieldCompute_supportSurface(QMeshPatch* layer);
+
+	Eigen::Vector3d inputDir;
 
 private:
 	bool _initializeIsoSurface(QMeshPatch* isoSurface);

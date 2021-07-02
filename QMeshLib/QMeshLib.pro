@@ -10,35 +10,13 @@ TARGET = QMeshLib
 TEMPLATE = lib
 CONFIG += staticlib
 
-SOURCES += \
-    QMeshEdge.cpp \
-    QMeshFace.cpp \
-    QMeshNode.cpp \
-    QMeshPatch.cpp \
-    QMeshTetra.cpp \
-    QMeshCluster.cpp \
-    PolygenMesh.cpp \
-    BSPTree.cpp \
-    BSPTreeOperation.cpp\
-    BSTree.cpp \
-    PMBody.cpp \
-    QMeshVoxel.cpp \
-    QMeshVoxelOperation.cpp
+SOURCES += *.cpp\
+	../Library/QHull/*.cpp \
+	../Library/PQPLib/*.cpp \
 
-HEADERS += \
-    QMeshEdge.h \
-    QMeshFace.h \
-    QMeshNode.h \
-    QMeshPatch.h \
-    QMeshTetra.h \
-    QMeshCluster.h \
-    PolygenMesh.h \
-    BSPTree.h \
-    BSPTreeOperation.h\
-    BSTree.h \
-    PMBody.h \
-    QMeshVoxel.h \
-    QMeshVoxelOperation.h
+HEADERS += *.h\
+    ../Library/QHull/*.h \
+	../Library/PQPLib/*.h \
 
 unix {
     target.path = /usr/lib

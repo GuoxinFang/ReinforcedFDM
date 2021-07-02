@@ -7,7 +7,7 @@
 //#include <malloc.h>
 
 #include "GLKLib.h"
-#include "GLKMatrixLib.h"
+//#include "GLKMatrixLib.h"
 #include "GLKGeometry.h"
 
 //////////////////////////////////////////////////////////////////////
@@ -72,7 +72,7 @@ void GLKGeometry::CalLineEquation( double & A, double & B, double & C, double x1
 bool GLKGeometry::ApproximatePlaneEquation( int n, float** p,
 		double & A, double & B, double & C, double & D )
 {
-	double**pp;	int i,j;	bool bReturn;
+	/*double**pp;	int i,j;	bool bReturn;
 	GLKMatrixLib::CreateMatrix(pp,n,3);
 	for(i=0;i<n;i++)
 		for(j=0;j<3;j++)
@@ -80,47 +80,49 @@ bool GLKGeometry::ApproximatePlaneEquation( int n, float** p,
 	bReturn=ApproximatePlaneEquation(n,pp,A,B,C,D);
 	GLKMatrixLib::DeleteMatrix(pp,n,3);
 
-	return bReturn;
+	return bReturn;*/
+	return false;
 }
 
 bool GLKGeometry::ApproximatePlaneEquation( int n, double** p,
 		double & A, double & B, double & C, double & D )
 {
-	double **M,**U,**V;
-	double cp[3],minSingularValue,ll;
-	int i;
-	bool rc;
+	return false;
+	//double **M,**U,**V;
+	//double cp[3],minSingularValue,ll;
+	//int i;
+	//bool rc;
 
-	cp[0]=0.0;	cp[1]=0.0;	cp[2]=0.0;
-	for(i=0;i<n;i++) {cp[0]+=p[i][0];	cp[1]+=p[i][1];	cp[2]+=p[i][2];}
-	cp[0]=cp[0]/(double)n;	cp[1]=cp[1]/(double)n;	cp[2]=cp[2]/(double)n;
+	//cp[0]=0.0;	cp[1]=0.0;	cp[2]=0.0;
+	//for(i=0;i<n;i++) {cp[0]+=p[i][0];	cp[1]+=p[i][1];	cp[2]+=p[i][2];}
+	//cp[0]=cp[0]/(double)n;	cp[1]=cp[1]/(double)n;	cp[2]=cp[2]/(double)n;
 
-	GLKMatrixLib::CreateMatrix(M,n,3);
-	GLKMatrixLib::CreateMatrix(V,3,3);
-	GLKMatrixLib::CreateMatrix(U,n,n);
-	for(i=0;i<n;i++) {M[i][0]=p[i][0]-cp[0]; M[i][1]=p[i][1]-cp[1]; M[i][2]=p[i][2]-cp[2];}
-	rc=GLKMatrixLib::SingularValueDecomposition(M,n,3,U,V);
-	if (rc) {
-		minSingularValue=M[0][0];	A=V[0][0];	B=V[0][1];	C=V[0][2];
-		if (M[1][1]<minSingularValue) {
-			minSingularValue=M[1][1];	A=V[1][0];	B=V[1][1];	C=V[1][2];
-		}
-		if (M[2][2]<minSingularValue) {A=V[2][0];	B=V[2][1];	C=V[2][2];}
+	//GLKMatrixLib::CreateMatrix(M,n,3);
+	//GLKMatrixLib::CreateMatrix(V,3,3);
+	//GLKMatrixLib::CreateMatrix(U,n,n);
+	//for(i=0;i<n;i++) {M[i][0]=p[i][0]-cp[0]; M[i][1]=p[i][1]-cp[1]; M[i][2]=p[i][2]-cp[2];}
+	//rc=GLKMatrixLib::SingularValueDecomposition(M,n,3,U,V);
+	//if (rc) {
+	//	minSingularValue=M[0][0];	A=V[0][0];	B=V[0][1];	C=V[0][2];
+	//	if (M[1][1]<minSingularValue) {
+	//		minSingularValue=M[1][1];	A=V[1][0];	B=V[1][1];	C=V[1][2];
+	//	}
+	//	if (M[2][2]<minSingularValue) {A=V[2][0];	B=V[2][1];	C=V[2][2];}
 
-		ll=sqrt(A*A+B*B+C*C);
-		if (ll>EPS) {
-			A=A/ll;	B=B/ll;	C=C/ll;
-			D=-(A*cp[0]+B*cp[1]+C*cp[2]);
-		}
-		else 
-			rc=false;
-	}
+	//	ll=sqrt(A*A+B*B+C*C);
+	//	if (ll>EPS) {
+	//		A=A/ll;	B=B/ll;	C=C/ll;
+	//		D=-(A*cp[0]+B*cp[1]+C*cp[2]);
+	//	}
+	//	else 
+	//		rc=false;
+	//}
 
-	GLKMatrixLib::DeleteMatrix(M,n,3);
-	GLKMatrixLib::DeleteMatrix(V,3,3);
-	GLKMatrixLib::DeleteMatrix(U,n,n);
+	//GLKMatrixLib::DeleteMatrix(M,n,3);
+	//GLKMatrixLib::DeleteMatrix(V,3,3);
+	//GLKMatrixLib::DeleteMatrix(U,n,n);
 
-	return rc;
+	//return rc;
 /*
 	double lumda,delta[5],bb[5],ll;
 	double **T,**E;

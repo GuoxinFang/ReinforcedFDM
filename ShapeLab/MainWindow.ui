@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1450</width>
+    <width>1511</width>
     <height>887</height>
    </rect>
   </property>
@@ -118,13 +118,13 @@
    </property>
    <property name="minimumSize">
     <size>
-     <width>350</width>
+     <width>400</width>
      <height>800</height>
     </size>
    </property>
    <property name="maximumSize">
     <size>
-     <width>350</width>
+     <width>400</width>
      <height>800</height>
     </size>
    </property>
@@ -145,16 +145,6 @@
          </property>
          <property name="text">
           <string>Deselect Mode</string>
-         </property>
-         <property name="checked">
-          <bool>false</bool>
-         </property>
-        </widget>
-       </item>
-       <item>
-        <widget class="QCheckBox" name="checkBox_spaseVectorField">
-         <property name="text">
-          <string>Sparse vector field</string>
          </property>
          <property name="checked">
           <bool>false</bool>
@@ -194,24 +184,169 @@
         <enum>QTabWidget::Rounded</enum>
        </property>
        <property name="currentIndex">
-        <number>3</number>
+        <number>0</number>
        </property>
        <property name="elideMode">
         <enum>Qt::ElideNone</enum>
        </property>
        <widget class="QWidget" name="tab_3">
         <attribute name="title">
-         <string>IsoSurface</string>
+         <string>Field computing, slcing and toolpath generation</string>
         </attribute>
-        <layout class="QVBoxLayout" name="verticalLayout_3">
-         <item>
+        <layout class="QGridLayout" name="gridLayout_2">
+         <item row="2" column="0">
+          <layout class="QVBoxLayout" name="verticalLayout_3">
+           <item>
+            <layout class="QHBoxLayout" name="horizontalLayout_4">
+             <item>
+              <widget class="QGroupBox" name="groupBox">
+               <property name="minimumSize">
+                <size>
+                 <width>140</width>
+                 <height>80</height>
+                </size>
+               </property>
+               <property name="maximumSize">
+                <size>
+                 <width>140</width>
+                 <height>80</height>
+                </size>
+               </property>
+               <property name="title">
+                <string>Step 2: Field Computing：</string>
+               </property>
+               <layout class="QHBoxLayout" name="horizontalLayout_15">
+                <item>
+                 <widget class="QPushButton" name="pushButton_CompGuideField">
+                  <property name="enabled">
+                   <bool>false</bool>
+                  </property>
+                  <property name="minimumSize">
+                   <size>
+                    <width>0</width>
+                    <height>30</height>
+                   </size>
+                  </property>
+                  <property name="text">
+                   <string>Guidance Field Computing</string>
+                  </property>
+                 </widget>
+                </item>
+               </layout>
+              </widget>
+             </item>
+             <item>
+              <widget class="QGroupBox" name="groupBox_2">
+               <property name="minimumSize">
+                <size>
+                 <width>0</width>
+                 <height>80</height>
+                </size>
+               </property>
+               <property name="maximumSize">
+                <size>
+                 <width>16777215</width>
+                 <height>80</height>
+                </size>
+               </property>
+               <property name="title">
+                <string>Generate Field by step and manual edit</string>
+               </property>
+               <layout class="QGridLayout" name="gridLayout">
+                <item row="0" column="0">
+                 <widget class="QPushButton" name="pushButton_CompVectorField">
+                  <property name="text">
+                   <string>Vector Feild</string>
+                  </property>
+                 </widget>
+                </item>
+                <item row="0" column="1">
+                 <widget class="QPushButton" name="pushButton_CompScalarField">
+                  <property name="text">
+                   <string>Scalar Field</string>
+                  </property>
+                 </widget>
+                </item>
+                <item row="1" column="0">
+                 <widget class="QPushButton" name="pushButton_VectorFieldFlipNormal">
+                  <property name="text">
+                   <string>Flip normal</string>
+                  </property>
+                 </widget>
+                </item>
+                <item row="1" column="1">
+                 <widget class="QPushButton" name="pushButton_VectorFieldDeleteRegion">
+                  <property name="text">
+                   <string>Delete region</string>
+                  </property>
+                 </widget>
+                </item>
+               </layout>
+              </widget>
+             </item>
+            </layout>
+           </item>
+          </layout>
+         </item>
+         <item row="5" column="0">
+          <layout class="QHBoxLayout" name="horizontalLayout_33">
+           <item>
+            <widget class="QPushButton" name="pushButton_compFieldonIsoSurface">
+             <property name="text">
+              <string>Step 4: Compute Field on Iso-surface</string>
+             </property>
+            </widget>
+           </item>
+          </layout>
+         </item>
+         <item row="3" column="0">
+          <layout class="QHBoxLayout" name="horizontalLayout_6">
+           <item>
+            <widget class="QPushButton" name="pushButtonBuildIsoSurface">
+             <property name="minimumSize">
+              <size>
+               <width>0</width>
+               <height>0</height>
+              </size>
+             </property>
+             <property name="text">
+              <string>Step 3: Curved Layer Slicer</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QLabel" name="label_11">
+             <property name="maximumSize">
+              <size>
+               <width>40</width>
+               <height>16777215</height>
+              </size>
+             </property>
+             <property name="text">
+              <string>Layer #</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QSpinBox" name="isoLayerNumber">
+             <property name="maximum">
+              <number>1000</number>
+             </property>
+             <property name="value">
+              <number>100</number>
+             </property>
+            </widget>
+           </item>
+          </layout>
+         </item>
+         <item row="0" column="0">
           <widget class="QPushButton" name="pushButton_compPrincipleStressField">
            <property name="text">
-            <string>Input Stress Tensor (FEM) and Compute Principle Stress</string>
+            <string>Step 1: Input FEA Result</string>
            </property>
           </widget>
          </item>
-         <item>
+         <item row="1" column="0">
           <layout class="QHBoxLayout" name="horizontalLayout_12">
            <item>
             <widget class="QLabel" name="Tensile">
@@ -262,92 +397,56 @@
            </item>
           </layout>
          </item>
-         <item>
-          <layout class="QHBoxLayout" name="horizontalLayout_4">
-           <item>
-            <widget class="QPushButton" name="pushButton_CompGuideField">
-             <property name="enabled">
-              <bool>false</bool>
-             </property>
-             <property name="text">
-              <string>Field Computing</string>
-             </property>
-            </widget>
-           </item>
-           <item>
-            <widget class="QCheckBox" name="checkBox_drawScalarGradient">
-             <property name="text">
-              <string>Vector / Scalar</string>
-             </property>
-             <property name="checked">
-              <bool>true</bool>
-             </property>
-            </widget>
-           </item>
-          </layout>
-         </item>
-         <item>
-          <layout class="QHBoxLayout" name="horizontalLayout_15">
-           <item>
-            <widget class="QPushButton" name="pushButton_CompVectorField">
-             <property name="text">
-              <string>Vector Feild</string>
-             </property>
-            </widget>
-           </item>
-           <item>
-            <widget class="QPushButton" name="pushButton_VectorFieldFlipNormal">
-             <property name="text">
-              <string>Flip normal</string>
-             </property>
-            </widget>
-           </item>
-           <item>
-            <widget class="QPushButton" name="pushButton_VectorFieldDeleteRegion">
-             <property name="text">
-              <string>Delete region</string>
-             </property>
-            </widget>
-           </item>
-           <item>
-            <widget class="QPushButton" name="pushButton_CompScalarField">
-             <property name="text">
-              <string>Scalar Field</string>
-             </property>
-            </widget>
-           </item>
-          </layout>
-         </item>
-         <item>
-          <widget class="QLabel" name="label_20">
-           <property name="maximumSize">
-            <size>
-             <width>16777215</width>
-             <height>10</height>
-            </size>
-           </property>
+         <item row="8" column="0">
+          <widget class="QPushButton" name="pushButton_directToolPathGeneration">
            <property name="text">
-            <string>----------------------------------------------------------------------------</string>
+            <string>Step 6: Multi-toolpath Generation (new)</string>
            </property>
           </widget>
          </item>
-         <item>
-          <layout class="QHBoxLayout" name="horizontalLayout_6">
+         <item row="7" column="0">
+          <layout class="QHBoxLayout" name="horizontalLayout_7">
            <item>
-            <widget class="QPushButton" name="pushButtonBuildIsoSurface">
-             <property name="minimumSize">
-              <size>
-               <width>0</width>
-               <height>0</height>
-              </size>
-             </property>
+            <widget class="QPushButton" name="pushButton_outputIsoLayer">
              <property name="text">
-              <string>Curved Layer Slicer</string>
+              <string>Step 5: Output Layer Below:</string>
              </property>
             </widget>
            </item>
            <item>
-            <widget class="QLabel" name="label_11">
+            <widget class="QSpinBox" name="outputLayerIndexNum">
+             <property name="maximumSize">
+              <size>
+               <width>60</width>
+               <height>16777215</height>
+              </size>
+             </property>
+             <property name="accelerated">
+              <bool>true</bool>
+             </property>
+             <property name="maximum">
+              <number>999</number>
+             </property>
+             <property name="displayIntegerBase">
+              <number>10</number>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QCheckBox" name="checkBox_outputSingleLayer">
+             <property name="maximumSize">
+              <size>
+               <width>60</width>
+               <height>16777215</height>
+              </size>
+             </property>
+             <property name="text">
+              <string>Siglie IO</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QCheckBox" name="checkBox_outputILayer_splitMode">
              <property name="maximumSize">
               <size>
                <width>40</width>
@@ -355,63 +454,44 @@
               </size>
              </property>
              <property name="text">
-              <string>Layer #</string>
+              <string>Split</string>
+             </property>
+             <property name="checked">
+              <bool>true</bool>
              </property>
             </widget>
            </item>
            <item>
-            <widget class="QSpinBox" name="isoLayerNumber">
-             <property name="maximum">
-              <number>1000</number>
+            <widget class="QCheckBox" name="checkBox_outputILayer_OFFMode">
+             <property name="maximumSize">
+              <size>
+               <width>40</width>
+               <height>16777215</height>
+              </size>
              </property>
-             <property name="value">
-              <number>100</number>
+             <property name="text">
+              <string>.off</string>
              </property>
             </widget>
            </item>
           </layout>
          </item>
+        </layout>
+       </widget>
+       <widget class="QWidget" name="tab">
+        <attribute name="title">
+         <string>Visual</string>
+        </attribute>
+        <layout class="QVBoxLayout" name="verticalLayout_4">
          <item>
-          <layout class="QHBoxLayout" name="horizontalLayout_13">
+          <layout class="QHBoxLayout" name="horizontalLayout_8">
            <item>
-            <widget class="QCheckBox" name="checkBox_UniformThickness">
+            <widget class="QCheckBox" name="checkBox_spaseVectorField">
              <property name="text">
-              <string>Layer (min, max)</string>
+              <string>Draw sparse vector field</string>
              </property>
              <property name="checked">
               <bool>false</bool>
-             </property>
-            </widget>
-           </item>
-           <item>
-            <widget class="QDoubleSpinBox" name="doubleSpinBox_LayerThickMin">
-             <property name="value">
-              <double>0.100000000000000</double>
-             </property>
-            </widget>
-           </item>
-           <item>
-            <widget class="QDoubleSpinBox" name="doubleSpinBox_LayerThickMax">
-             <property name="value">
-              <double>1.500000000000000</double>
-             </property>
-            </widget>
-           </item>
-          </layout>
-         </item>
-         <item>
-          <layout class="QHBoxLayout" name="horizontalLayout_33">
-           <item>
-            <widget class="QPushButton" name="pushButton_compFieldonIsoSurface">
-             <property name="text">
-              <string>Compute Field on Iso-surface</string>
-             </property>
-            </widget>
-           </item>
-           <item>
-            <widget class="QPushButton" name="pushButton_changeOrder">
-             <property name="text">
-              <string>Flip order</string>
              </property>
             </widget>
            </item>
@@ -450,766 +530,27 @@
           </layout>
          </item>
          <item>
-          <layout class="QHBoxLayout" name="horizontalLayout_7">
-           <item>
-            <widget class="QPushButton" name="pushButton_outputIsoLayer">
-             <property name="text">
-              <string>Layer Below:</string>
-             </property>
-            </widget>
-           </item>
-           <item>
-            <widget class="QSpinBox" name="outputLayerIndexNum">
-             <property name="accelerated">
-              <bool>true</bool>
-             </property>
-             <property name="maximum">
-              <number>999</number>
-             </property>
-             <property name="displayIntegerBase">
-              <number>10</number>
-             </property>
-            </widget>
-           </item>
-           <item>
-            <widget class="QCheckBox" name="checkBox_outputSingleLayer">
-             <property name="text">
-              <string>Siglie IO</string>
-             </property>
-            </widget>
-           </item>
-           <item>
-            <widget class="QCheckBox" name="checkBox_outputILayer_splitMode">
-             <property name="text">
-              <string>Split</string>
-             </property>
-             <property name="checked">
-              <bool>true</bool>
-             </property>
-            </widget>
-           </item>
-           <item>
-            <widget class="QCheckBox" name="checkBox_outputILayer_OFFMode">
-             <property name="text">
-              <string>.off</string>
-             </property>
-            </widget>
-           </item>
-          </layout>
-         </item>
-        </layout>
-       </widget>
-       <widget class="QWidget" name="tab_5">
-        <attribute name="title">
-         <string>Fabrication</string>
-        </attribute>
-        <layout class="QVBoxLayout" name="verticalLayout_7">
-         <item>
-          <layout class="QHBoxLayout" name="horizontalLayout_27">
-           <item>
-            <widget class="QPushButton" name="pushButton_fabricationDirection">
-             <property name="text">
-              <string>Fabrication Direction</string>
-             </property>
-            </widget>
-           </item>
-           <item>
-            <widget class="QCheckBox" name="checkBox_3DrotateInverse">
-             <property name="text">
-              <string>Inverse (3d)</string>
-             </property>
-            </widget>
-           </item>
-          </layout>
-         </item>
-         <item>
-          <layout class="QHBoxLayout" name="horizontalLayout_31">
-           <item>
-            <widget class="QCheckBox" name="checkBox_computeFabricationDirection">
-             <property name="text">
-              <string>Computed (2D/3D (a,b))</string>
-             </property>
-            </widget>
-           </item>
-           <item>
-            <widget class="QSpinBox" name="spinBox_ComputedAnlge">
-             <property name="maximum">
-              <number>360</number>
-             </property>
-             <property name="value">
-              <number>295</number>
-             </property>
-            </widget>
-           </item>
-           <item>
-            <widget class="QDoubleSpinBox" name="spinBox_ComputedAnlgeAlpha">
-             <property name="minimum">
-              <double>-1000.000000000000000</double>
-             </property>
-             <property name="maximum">
-              <double>1000.000000000000000</double>
-             </property>
-             <property name="value">
-              <double>230.000000000000000</double>
-             </property>
-            </widget>
-           </item>
-           <item>
-            <widget class="QDoubleSpinBox" name="spinBox_ComputedAnlgeBeta">
-             <property name="minimum">
-              <double>-10000.000000000000000</double>
-             </property>
-             <property name="maximum">
-              <double>10000.000000000000000</double>
-             </property>
-             <property name="value">
-              <double>130.000000000000000</double>
-             </property>
-            </widget>
-           </item>
-          </layout>
-         </item>
-         <item>
-          <layout class="QHBoxLayout" name="horizontalLayout_21">
-           <item>
-            <widget class="QPushButton" name="pushButton_supportingStructureDetection">
-             <property name="text">
-              <string>Support Region Detection</string>
-             </property>
-            </widget>
-           </item>
-           <item>
-            <widget class="QPushButton" name="pushButton_buildSupportNode">
-             <property name="text">
-              <string>Build support node</string>
-             </property>
-            </widget>
-           </item>
-           <item>
-            <widget class="QCheckBox" name="checkBox_saveSupportNode">
-             <property name="text">
-              <string>Save</string>
-             </property>
-            </widget>
-           </item>
-          </layout>
-         </item>
-         <item>
-          <layout class="QHBoxLayout" name="horizontalLayout_23">
-           <item>
-            <widget class="QPushButton" name="pushButton_selectSupportRegion">
-             <property name="text">
-              <string>Interactive S-region</string>
-             </property>
-            </widget>
-           </item>
-           <item>
-            <widget class="QCheckBox" name="checkBox_deselectSupportNode">
-             <property name="text">
-              <string>deselect SNode</string>
-             </property>
-             <property name="checked">
-              <bool>true</bool>
-             </property>
-            </widget>
-           </item>
-           <item>
-            <widget class="QCheckBox" name="checkBox_deselectSupportNode_byNode">
-             <property name="text">
-              <string>Init/Support</string>
-             </property>
-             <property name="checked">
-              <bool>true</bool>
-             </property>
-            </widget>
-           </item>
-          </layout>
-         </item>
-         <item>
-          <layout class="QHBoxLayout" name="horizontalLayout_28">
-           <item>
-            <widget class="QPushButton" name="pushButton_layerThickCompandDraw">
-             <property name="text">
-              <string>Compute Layer Thickness and Draw</string>
-             </property>
-            </widget>
-           </item>
-          </layout>
-         </item>
-         <item>
-          <layout class="QHBoxLayout" name="horizontalLayout_32">
-           <item>
-            <widget class="QPushButton" name="pushButton_checkCollision">
-             <property name="text">
-              <string>Check Collision</string>
-             </property>
-            </widget>
-           </item>
-           <item>
-            <widget class="QCheckBox" name="checkBox_CollisionUpdateLayer">
-             <property name="text">
-              <string>Rebuild Layer</string>
-             </property>
-            </widget>
-           </item>
-          </layout>
-         </item>
-         <item>
-          <widget class="QLabel" name="label_23">
-           <property name="text">
-            <string>--------------- Input support structure support mesh---------------</string>
-           </property>
-          </widget>
-         </item>
-         <item>
-          <layout class="QHBoxLayout" name="horizontalLayout_26">
-           <item>
-            <widget class="QPushButton" name="pushButton_InputIsoLayerwithSupport">
-             <property name="text">
-              <string>input layer (S)</string>
-             </property>
-            </widget>
-           </item>
-           <item>
-            <widget class="QPushButton" name="pushButton_cutLayerbyConvexHull">
-             <property name="text">
-              <string>split mesh (C-HULL)</string>
-             </property>
-            </widget>
-           </item>
-           <item>
-            <widget class="QPushButton" name="pushButton_objtooff">
-             <property name="text">
-              <string>obj-&gt;off</string>
-             </property>
-            </widget>
-           </item>
-          </layout>
-         </item>
-         <item>
-          <layout class="QHBoxLayout" name="horizontalLayout_22">
-           <item>
-            <widget class="QPushButton" name="pushButton_fabricationSupportTetMesh">
-             <property name="text">
-              <string>Support mesh generation</string>
-             </property>
-            </widget>
-           </item>
-           <item>
-            <widget class="QPushButton" name="pushButton_fabricationSupportSurface">
-             <property name="text">
-              <string>Compute support surface</string>
-             </property>
-            </widget>
-           </item>
-          </layout>
-         </item>
-         <item>
-          <layout class="QHBoxLayout" name="horizontalLayout_25">
-           <item>
-            <widget class="QPushButton" name="pushButton_fabricationEffectSupportSurfaceDetection">
-             <property name="text">
-              <string>Delete non-important support region (iso-surface)</string>
-             </property>
-            </widget>
-           </item>
-           <item>
-            <widget class="QDoubleSpinBox" name="doubleSpinBox_supportNodeBoxSize">
-             <property name="value">
-              <double>1.500000000000000</double>
-             </property>
-            </widget>
-           </item>
-          </layout>
-         </item>
-        </layout>
-       </widget>
-       <widget class="QWidget" name="tab_2">
-        <attribute name="title">
-         <string>Tool Path</string>
-        </attribute>
-        <layout class="QVBoxLayout" name="verticalLayout_6">
-         <item>
-          <layout class="QHBoxLayout" name="horizontalLayout_11">
-           <item>
-            <widget class="QLabel" name="label_3">
-             <property name="text">
-              <string>Offset (mm)</string>
-             </property>
-            </widget>
-           </item>
-           <item>
-            <widget class="QDoubleSpinBox" name="doubleSpinBox_toolpathOffsetValue">
-             <property name="value">
-              <double>0.800000000000000</double>
-             </property>
-            </widget>
-           </item>
-           <item>
-            <widget class="QLabel" name="label_2">
-             <property name="text">
-              <string>Boundary Circle Num:</string>
-             </property>
-            </widget>
-           </item>
-           <item>
-            <widget class="QSpinBox" name="spinBox_bToolPath_Num">
-             <property name="value">
-              <number>3</number>
-             </property>
-            </widget>
-           </item>
-          </layout>
-         </item>
-         <item>
-          <layout class="QHBoxLayout" name="horizontalLayout_17">
-           <item>
-            <widget class="QLabel" name="label_4">
-             <property name="text">
-              <string>Max ZigZag gap distance (mm)</string>
-             </property>
-            </widget>
-           </item>
-           <item>
-            <widget class="QDoubleSpinBox" name="doubleSpinBox_maxGapDistance">
-             <property name="value">
-              <double>4.000000000000000</double>
-             </property>
-            </widget>
-           </item>
-          </layout>
-         </item>
-         <item>
-          <layout class="QHBoxLayout" name="horizontalLayout_18">
-           <item>
-            <widget class="QLabel" name="label_19">
-             <property name="text">
-              <string>Zigzag-bound connect dis (layer gap #)</string>
-             </property>
-            </widget>
-           </item>
-           <item>
-            <widget class="QDoubleSpinBox" name="doubleSpinBox_zigzagBoundConnectDistance">
-             <property name="value">
-              <double>1.700000000000000</double>
-             </property>
-            </widget>
-           </item>
-          </layout>
-         </item>
-         <item>
-          <layout class="QHBoxLayout" name="horizontalLayout_19">
-           <item>
-            <widget class="QLabel" name="label_12">
-             <property name="text">
-              <string>Boundary ToolPath shrink distance (mm)</string>
-             </property>
-            </widget>
-           </item>
-           <item>
-            <widget class="QDoubleSpinBox" name="doubleSpinBox_boundShrinkValue">
-             <property name="value">
-              <double>0.100000000000000</double>
-             </property>
-            </widget>
-           </item>
-          </layout>
-         </item>
-         <item>
-          <widget class="QLabel" name="label_22">
-           <property name="text">
-            <string>---------------------------------Parameter-------------------------------</string>
-           </property>
-          </widget>
-         </item>
-         <item>
-          <widget class="QPushButton" name="pushButton_runHeatMethod">
-           <property name="text">
-            <string>Run Heat Method (Boundary + Zigzag)</string>
-           </property>
-          </widget>
-         </item>
-         <item>
-          <layout class="QHBoxLayout" name="horizontalLayout_29">
-           <item>
-            <widget class="QPushButton" name="pushButton_generateZigZagToolPath">
-             <property name="text">
-              <string>Heat Method tool-path</string>
-             </property>
-            </widget>
-           </item>
-           <item>
-            <widget class="QPushButton" name="pushButton_generateStressFieldToolPath">
-             <property name="text">
-              <string>Stress-Field tool-path</string>
-             </property>
-            </widget>
-           </item>
-          </layout>
-         </item>
-         <item>
-          <layout class="QHBoxLayout" name="horizontalLayout_30">
-           <item>
-            <widget class="QPushButton" name="pushButton_outputToolPath">
-             <property name="text">
-              <string>Output ToolPath</string>
-             </property>
-            </widget>
-           </item>
-           <item>
-            <widget class="QPushButton" name="pushButton_directToolPathGeneration">
-             <property name="text">
-              <string>Multi-toolpath Generation (new)</string>
-             </property>
-            </widget>
-           </item>
-          </layout>
-         </item>
-         <item>
-          <widget class="QLabel" name="label_21">
-           <property name="text">
-            <string>-----------Single ↑------------------------------Multiple ↓---------------</string>
-           </property>
-          </widget>
-         </item>
-         <item>
-          <widget class="QPushButton" name="pushButton_toolpathGenerationChecking">
-           <property name="text">
-            <string>Mesh Checking for Toolpath generation (layer set)</string>
-           </property>
-          </widget>
-         </item>
-         <item>
-          <layout class="QHBoxLayout" name="horizontalLayout_14">
-           <item>
-            <widget class="QPushButton" name="pushButton_allLayerToolpathGenerate">
-             <property name="text">
-              <string>Generate toolpath for all layer and save</string>
-             </property>
-            </widget>
-           </item>
-           <item>
-            <widget class="QCheckBox" name="checkBox_cpuSpeedUpToolpathGeneration">
-             <property name="text">
-              <string>CPU SpeedUp</string>
-             </property>
-             <property name="checked">
-              <bool>true</bool>
-             </property>
-            </widget>
-           </item>
-          </layout>
-         </item>
-        </layout>
-       </widget>
-       <widget class="QWidget" name="tab">
-        <attribute name="title">
-         <string>Visual</string>
-        </attribute>
-        <layout class="QVBoxLayout" name="verticalLayout_4">
-         <item>
-          <widget class="QPushButton" name="pushButton_deselectAllinModelTree">
-           <property name="text">
-            <string>Deselect all in model tree</string>
-           </property>
-          </widget>
-         </item>
-         <item>
-          <layout class="QHBoxLayout" name="horizontalLayout_24">
-           <item>
-            <widget class="QPushButton" name="pushButton_scaleModelSize">
-             <property name="text">
-              <string>Scale Model</string>
-             </property>
-            </widget>
-           </item>
-           <item>
-            <widget class="QDoubleSpinBox" name="doubleSpinBox_modelScaleFactor">
-             <property name="value">
-              <double>0.750000000000000</double>
-             </property>
-            </widget>
-           </item>
-          </layout>
-         </item>
-         <item>
-          <widget class="QPushButton" name="pushButton_heatMethodTest">
-           <property name="text">
-            <string>heatMethodBoundaryField</string>
-           </property>
-          </widget>
-         </item>
-         <item>
-          <layout class="QHBoxLayout" name="horizontalLayout_3">
-           <item>
-            <widget class="QLabel" name="maxValue">
-             <property name="text">
-              <string>Max Value = 0</string>
-             </property>
-            </widget>
-           </item>
-           <item>
-            <widget class="QSlider" name="maximumValue">
-             <property name="orientation">
-              <enum>Qt::Horizontal</enum>
-             </property>
-            </widget>
-           </item>
-          </layout>
-         </item>
-         <item>
-          <layout class="QHBoxLayout" name="horizontalLayout_2">
-           <item>
-            <widget class="QLabel" name="minValue">
-             <property name="layoutDirection">
-              <enum>Qt::LeftToRight</enum>
-             </property>
-             <property name="text">
-              <string> Min Value = 0</string>
-             </property>
-            </widget>
-           </item>
-           <item>
-            <widget class="QSlider" name="minimumValue">
-             <property name="orientation">
-              <enum>Qt::Horizontal</enum>
-             </property>
-            </widget>
-           </item>
-          </layout>
-         </item>
-         <item>
-          <layout class="QHBoxLayout" name="horizontalLayout_10">
-           <item>
-            <widget class="QLabel" name="label_14">
-             <property name="text">
-              <string>Laplace Weight</string>
-             </property>
-            </widget>
-           </item>
-           <item>
-            <widget class="QLineEdit" name="LaplaceWeight">
-             <property name="text">
-              <string>0.01</string>
-             </property>
-            </widget>
-           </item>
-          </layout>
-         </item>
-         <item>
-          <widget class="QPushButton" name="pushButton_tetraDelete">
-           <property name="text">
-            <string>Delete inner tetrahderal (hollowing)</string>
-           </property>
-          </widget>
-         </item>
-        </layout>
-       </widget>
-       <widget class="QWidget" name="tab_4">
-        <attribute name="title">
-         <string>Voxel</string>
-        </attribute>
-        <layout class="QVBoxLayout" name="verticalLayout_5">
-         <item>
-          <widget class="QPushButton" name="pushButton_volumetoSurface">
-           <property name="text">
-            <string>Transfer volume mesh to surface mesh</string>
-           </property>
-          </widget>
-         </item>
-         <item>
-          <layout class="QHBoxLayout" name="horizontalLayout_20">
-           <item>
-            <widget class="QLabel" name="label_9">
-             <property name="text">
-              <string>Voxel Width</string>
-             </property>
-            </widget>
-           </item>
-           <item>
-            <widget class="QDoubleSpinBox" name="doubleSpinBox_voxelWidth">
-             <property name="singleStep">
-              <double>0.100000000000000</double>
-             </property>
-             <property name="value">
-              <double>1.000000000000000</double>
-             </property>
-            </widget>
-           </item>
-           <item>
-            <widget class="QLabel" name="label_10">
-             <property name="text">
-              <string>Voxel Exbanding</string>
-             </property>
-            </widget>
-           </item>
-           <item>
-            <widget class="QSpinBox" name="spinBox_expandingLayer">
-             <property name="minimum">
-              <number>-1</number>
-             </property>
-             <property name="maximum">
-              <number>10</number>
-             </property>
-             <property name="value">
-              <number>4</number>
-             </property>
-            </widget>
-           </item>
-          </layout>
-         </item>
-         <item>
-          <widget class="QPushButton" name="pushButton_GenerateVoxel">
-           <property name="text">
-            <string>Generation Voxel</string>
-           </property>
-          </widget>
-         </item>
-         <item>
-          <widget class="QLabel" name="label_8">
-           <property name="text">
-            <string>M1: Convex Peeling</string>
-           </property>
-          </widget>
-         </item>
-         <item>
-          <widget class="QLabel" name="label_15">
-           <property name="text">
-            <string>M2: Peeling-Field Guide Growing (Recommand)</string>
-           </property>
-          </widget>
-         </item>
-         <item>
-          <widget class="QLabel" name="label_16">
-           <property name="text">
-            <string>M3: Convex-front Growing; M4: with Platform</string>
-           </property>
-          </widget>
-         </item>
-         <item>
-          <widget class="QLabel" name="label_17">
-           <property name="text">
-            <string>M5: Convex-front Growing + Shadow Prevention</string>
-           </property>
-          </widget>
-         </item>
-         <item>
-          <layout class="QHBoxLayout" name="horizontalLayout_8">
-           <item>
-            <widget class="QPushButton" name="pushButton_voxelLayerGeneration">
-             <property name="enabled">
-              <bool>false</bool>
-             </property>
-             <property name="text">
-              <string>Order Generation by Method:</string>
-             </property>
-            </widget>
-           </item>
-           <item>
-            <widget class="QSpinBox" name="spinBox_VoxelGenerateMethod">
-             <property name="minimum">
-              <number>1</number>
-             </property>
-             <property name="maximum">
-              <number>6</number>
-             </property>
-             <property name="value">
-              <number>2</number>
-             </property>
-            </widget>
-           </item>
-           <item>
-            <widget class="QCheckBox" name="checkBox_loadPlatform">
-             <property name="text">
-              <string>Input Platform</string>
-             </property>
-             <property name="checked">
-              <bool>true</bool>
-             </property>
-            </widget>
-           </item>
-          </layout>
-         </item>
-         <item>
           <layout class="QHBoxLayout" name="horizontalLayout_9">
            <item>
-            <widget class="QLabel" name="label_18">
+            <widget class="QPushButton" name="pushButton_deselectAllinModelTree">
              <property name="text">
-              <string>View Voxel Layer:</string>
+              <string>Deselect all in model tree</string>
              </property>
             </widget>
            </item>
            <item>
-            <widget class="QSpinBox" name="spinBox_voxelLayer">
-             <property name="enabled">
-              <bool>true</bool>
-             </property>
-             <property name="accelerated">
-              <bool>false</bool>
-             </property>
-             <property name="showGroupSeparator" stdset="0">
-              <bool>false</bool>
-             </property>
-             <property name="minimum">
-              <number>-1</number>
-             </property>
-             <property name="maximum">
-              <number>300</number>
-             </property>
-             <property name="value">
-              <number>0</number>
-             </property>
-             <property name="displayIntegerBase">
-              <number>10</number>
-             </property>
-            </widget>
-           </item>
-           <item>
-            <widget class="QPushButton" name="pushButton_saveVoxelOrder">
+            <widget class="QPushButton" name="pushButton_heatMethodTest">
              <property name="text">
-              <string>Save order</string>
-             </property>
-            </widget>
-           </item>
-           <item>
-            <widget class="QPushButton" name="pushButton_loadVoxelOrder">
-             <property name="text">
-              <string>Load  order</string>
+              <string>Draw Heat Method BoundaryField</string>
              </property>
             </widget>
            </item>
           </layout>
          </item>
          <item>
-          <widget class="QLabel" name="label_6">
-           <property name="minimumSize">
-            <size>
-             <width>0</width>
-             <height>10</height>
-            </size>
-           </property>
-           <property name="maximumSize">
-            <size>
-             <width>16777215</width>
-             <height>10</height>
-            </size>
-           </property>
+          <widget class="QPushButton" name="pushButton_changeOrder">
            <property name="text">
-            <string>-----------------------------------------------------------------------------</string>
-           </property>
-          </widget>
-         </item>
-         <item>
-          <widget class="QPushButton" name="pushButton_isoFacefromVoxelLayer">
-           <property name="text">
-            <string> Voxel Order -&gt; Tetrahedral Scalar Field</string>
-           </property>
-          </widget>
-         </item>
-         <item>
-          <widget class="QPushButton" name="pushButton_translateTetrahedraltoVoxel">
-           <property name="text">
-            <string>Tetrahedral Scalar Field -&gt;  Voxel Order</string>
+            <string>Flip layer order</string>
            </property>
           </widget>
          </item>
@@ -1273,7 +614,7 @@
           <property name="maximumSize">
            <size>
             <width>16777215</width>
-            <height>200</height>
+            <height>150</height>
            </size>
           </property>
           <property name="verticalScrollBarPolicy">
@@ -1315,8 +656,8 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>1450</width>
-     <height>21</height>
+     <width>1511</width>
+     <height>18</height>
     </rect>
    </property>
    <property name="layoutDirection">
@@ -1379,8 +720,7 @@
     <property name="title">
      <string>Function</string>
     </property>
-    <addaction name="actionExport_to_Abaqus_model"/>
-    <addaction name="actionInputFEM"/>
+    <addaction name="actionExport2Abaqus"/>
    </widget>
    <addaction name="menuFile"/>
    <addaction name="menuView"/>
@@ -1405,8 +745,6 @@
    </attribute>
    <addaction name="actionOpen"/>
    <addaction name="actionSave"/>
-   <addaction name="actionExport_to_Abaqus_model"/>
-   <addaction name="actionInputFEM"/>
   </widget>
   <action name="actionOpen">
    <property name="icon">
@@ -1695,7 +1033,7 @@
     <string>Select Chamber (SORO)</string>
    </property>
   </action>
-  <action name="actionExport_to_Abaqus_model">
+  <action name="actionExport2Abaqus">
    <property name="checkable">
     <bool>false</bool>
    </property>
@@ -1704,7 +1042,7 @@
      <normaloff>:/resource/abaqus logo.png</normaloff>:/resource/abaqus logo.png</iconset>
    </property>
    <property name="text">
-    <string>Export to Abaqus model</string>
+    <string>Export tetrahedral mesh to Abaqus INP file</string>
    </property>
   </action>
   <action name="actionShape_Up_Mesh_Deformation">
@@ -1749,6 +1087,11 @@
   <action name="action_GenerateTrajectory">
    <property name="text">
     <string>Generate Trajectory</string>
+   </property>
+  </action>
+  <action name="actionScale_Model_Size">
+   <property name="text">
+    <string>Scale Model Size</string>
    </property>
   </action>
  </widget>

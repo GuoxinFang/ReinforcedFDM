@@ -10,33 +10,10 @@ TARGET = GLKLib
 TEMPLATE = lib
 CONFIG += staticlib
 
-SOURCES += GLKLib.cpp \
-    GLKGeometry.cpp \
-    GLKGraph.cpp \
-    GLKHeap.cpp \
-    GLKMatrixLib.cpp \
-    GLKNearestNeighbor.cpp \
-    GLKObList.cpp \
-    GLKRational.cpp \
-    GLKSparseMatrix.cpp \
-    GLKSparseMatrixDirectSolver.cpp \
-    GLKSparseMatrixIterativeSolver.cpp \
-    InteractiveTool.cpp
+SOURCES += *.cpp \
 
-HEADERS += GLKLib.h \
-    GLKGeometry.h \
-    GLKGLList.h \
-    GLKGraph.h \
-    GLKHeap.h \
-    GLKMatrixLib.h \
-    GLKNearestNeighbor.h \
-    GLKObList.h \
-    GLKRational.h \
-    GLKSparseMatrix.h \
-    GLKSparseMatrixDirectSolver.h \
-    GLKSparseMatrixIterativeSolver.h \
-    GLKCameraTool.h \
-    InteractiveTool.h
+HEADERS += *.h \
+   
 unix {
     target.path = /usr/lib
     INSTALLS += target

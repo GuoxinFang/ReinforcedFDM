@@ -14,6 +14,44 @@ toolPathGeneration::toolPathGeneration(QMeshPatch* inputMesh)
 toolPathGeneration::~toolPathGeneration() {}
 
 //////////////////////////////////////////////////////////////////////////////////
+/* function for CCF project usage */
+void toolPathGeneration::mergeFieldforCCF() {
+
+	Eigen::VectorXd guideField(surfaceMesh->GetNodeNumber());
+	Eigen::VectorXd guideFieldNormalize(surfaceMesh->GetNodeNumber());
+	int index = 0;
+	for (GLKPOSITION Pos = surfaceMesh->GetNodeList().GetHeadPosition(); Pos;) {
+		QMeshNode* Node = (QMeshNode*)surfaceMesh->GetNodeList().GetNext(Pos);
+		Node->zigzagValue = 2 * abs(Node->zigzagValue - 0.5);
+		guideField(index) = (Node->zigzagValue + (1-Node->boundaryValue)) / 2; index++;
+	}
+
+
+	// compute max and min phis
+	double minPhi = INFINITY;
+	double maxPhi = -INFINITY;
+
+	for (int i = 0; i < surfaceMesh->GetNodeNumber(); i++) {
+		if (minPhi > guideField(i)) minPhi = guideField(i);
+		if (maxPhi < guideField(i)) maxPhi = guideField(i);
+	}
+	double range = maxPhi - minPhi;
+
+	for (int i = 0; i < surfaceMesh->GetNodeNumber(); i++)
+		guideFieldNormalize(i) = 1 - (guideField(i) - minPhi) / range;
+
+	index = 0;
+	for (GLKPOSITION Pos = surfaceMesh->GetNodeList().GetHeadPosition(); Pos;) {
+		QMeshNode* Node = (QMeshNode*)surfaceMesh->GetNodeList().GetNext(Pos);
+		Node->zigzagValue = guideFieldNormalize(index); index++;
+
+		//Node->zigzagValue = 2 * abs(Node->zigzagValue - 0.5);
+	}
+
+}
+
+
+//////////////////////////////////////////////////////////////////////////////////
 /* Below are the function for tool path generation from geodistance field value
 - IO function to Mainwindow */
 
@@ -26,11 +64,11 @@ void toolPathGeneration::generateZigzagToolPath(PolygenMesh* tPath, int Num)
 	if (generateZigZagIsoNode(Num) == false) { printf("No isonode for zigzag \n"); return; }
 	else {
 		//verify the correctness of zigzag node generation - by visuilization
-	/*for (GLKPOSITION Pos = zigzagPathList.GetHeadPosition(); Pos;) {
-		QMeshPatch* patch = (QMeshPatch*)zigzagPathList.GetNext(Pos);
-		tPath->GetMeshList().AddTail(patch);
-		patch->isToolPathPatch = true;
-	}*/
+	/*	for (GLKPOSITION Pos = zigzagPathList.GetHeadPosition(); Pos;) {
+			QMeshPatch* patch = (QMeshPatch*)zigzagPathList.GetNext(Pos);
+			tPath->GetMeshList().AddTail(patch);
+			patch->isToolPathPatch = true;
+		}*/
 
 	//connect all isonode to continues toolpath
 		int zigzagRNum = 0;
@@ -146,9 +184,9 @@ bool toolPathGeneration::generateSingleZigzagToolPathIsoNode(QMeshPatch *singleP
 					alpha * Edge->GetEndPoint()->boundaryValue;
 			}
 
-			//detect if the node inside the boundary region
-			if (boundaryValue > minBoundaryFieldValue) 
-				continue;
+			// #### detect if the node inside the boundary region ####
+
+			if (breakZigzagbyBoundary && boundaryValue > minBoundaryFieldValue) continue;
 
 			QMeshNode* isoNode = new QMeshNode;
 			isoNode->SetMeshPatchPtr(singlePath);
@@ -192,7 +230,8 @@ bool toolPathGeneration::generateSingleZigzagToolPathIsoNode(QMeshPatch *singleP
 
 		if (thisEdge->IsBoundaryEdge()) {
 			thisNode->isZigzagBoundaryNode = true; zigzagPathBoundaryNode++;
-			cout << "Warning:: Notice that, the zigzag toolpath node related to a boundary edge! " <<
+			if(breakZigzagbyBoundary)
+				cout << "Warning:: Notice that, the zigzag toolpath node related to a boundary edge! " <<
 				"You can try to make the boundary tool-path offset higher." << endl;
 			continue;
 		}
@@ -251,7 +290,7 @@ void toolPathGeneration::connectZigZagToolPathToRegion(PolygenMesh* tPath) {
 		}
 	}
 
-	if (startNodeFind == false)
+	if (startNodeFind == false && breakZigzagbyBoundary)
 		std::cout << "the start node of this region is not found for No." << startToolPath->GetIndexNo() << " region!" << endl;
 
 	double pp[3]; startNode->GetCoord3D(pp);
@@ -321,7 +360,7 @@ QMeshNode* toolPathGeneration::connectSingleZigZagToolPathandGenerateEdge
 		sNode->connectTPathProcessed = true;
 
 		QMeshEdge* thisEdge = surfaceMesh->GetEdgeRecordPtr(sNode->relatedEdgeIndex + 1);
-		if (thisEdge->IsBoundaryEdge())
+		if (thisEdge->IsBoundaryEdge() && breakZigzagbyBoundary)
 			cout << "ERROR, this zigzag toolpath node related edge should not belongs to boundary!" << endl;
 
 		bool eNodeDetect = false;

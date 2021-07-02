@@ -7,7 +7,7 @@ using namespace Eigen;
 #define TENSILE 0
 #define COMPRESS 1
 
-void VectorField::initMeshVectorFieldCompute() {
+void VectorField::initMeshVectorFieldCompute(bool manual) {
 
 	this->_initializeIndex();
 
@@ -18,22 +18,79 @@ void VectorField::initMeshVectorFieldCompute() {
 	this->_criticalRegionVectorFieldInitialGuess();
 	std::cout << " Vector Field - Initialization finished! " << std::endl << std::endl;
 
-	//-------------------------------------
-	// find best orientation for single critical region (by flooding)
 	this->_criticalRegionOrientationDetectionbyFlooding();
 	this->_smoothVectorFieldCriticalRegion();
 	std::cout << " Vector Field - Field computing finished! " << std::endl << std::endl;
 
 	//-------------------------------------
-	// find best orientation between different critical region (by sorting)
-	this->_optOrientationBetweenRegions();
+	// find best orientation for single critical region (by flooding)
 
-	//-------------------------------------
-	// fill the rest unimportant region with laplacian and apply global smooth for vector field
-	//this->_fillNIERegionandSmooth(200, true);
+	if (manual == false) {
+		//-------------------------------------
+		// find best orientation between different critical region (by sorting)
+		this->_optOrientationBetweenRegions();
+
+		//-------------------------------------
+		// fill the rest unimportant region with laplacian and apply global smooth for vector field
+		this->fillNIERegionandSmooth(200, true);
+	}
+	
 
 	tetMesh->drawVectorField = true;
 
+}
+
+void VectorField::flipSelectedRegion() {
+	QMeshTetra* startTetra = NULL;
+	for (GLKPOSITION Pos = tetMesh->GetTetraList().GetHeadPosition(); Pos;) {
+		QMeshTetra* Tetra = (QMeshTetra*)tetMesh->GetTetraList().GetNext(Pos);
+		if (startTetra != NULL) break;
+		for (int i = 0; i < 4; i++) {
+			if (Tetra->GetNodeRecordPtr(i + 1)->selected && Tetra->isTensileorCompressSelect) {
+				startTetra = Tetra; break;
+			}
+		}
+	}
+
+	std::vector< QMeshTetra* > TetraSet;
+	TetraSet.push_back(startTetra);
+	int type;
+	if (startTetra->sigma_max > 0) type = TENSILE;
+	else type = COMPRESS;
+
+	int setNum;
+	do {
+		setNum = TetraSet.size();
+
+		for (int i = 0; i < TetraSet.size(); i++) {
+			this->_detectNeighborTetrabyNode(TetraSet, TetraSet[i], false, type, false);
+		}
+
+	} while (setNum != TetraSet.size());
+
+	for (int i = 0; i < TetraSet.size(); i++) {
+		TetraSet[i]->vectorField = -TetraSet[i]->vectorField;
+	}
+
+	for (GLKPOSITION Pos = tetMesh->GetNodeList().GetHeadPosition(); Pos;) {
+		QMeshNode* Node = (QMeshNode*)tetMesh->GetNodeList().GetNext(Pos);
+		Node->selected = false;
+	}
+}
+
+void VectorField::deleteSelectedRegion() {
+	for (GLKPOSITION Pos = tetMesh->GetTetraList().GetHeadPosition(); Pos;) {
+		QMeshTetra* Tetra = (QMeshTetra*)tetMesh->GetTetraList().GetNext(Pos);
+		for (int i = 0; i < 4; i++) {
+			if (Tetra->GetNodeRecordPtr(i + 1)->selected) Tetra->isTensileorCompressSelect = false;
+		}
+		if (!Tetra->isTensileorCompressSelect)
+			Tetra->vectorField = Eigen::Vector3d::Zero();
+	}
+	for (GLKPOSITION Pos = tetMesh->GetNodeList().GetHeadPosition(); Pos;) {
+		QMeshNode* Node = (QMeshNode*)tetMesh->GetNodeList().GetNext(Pos);
+		Node->selected = false;
+	}
 }
 
 void VectorField::_initializeIndex()
@@ -79,7 +136,7 @@ void VectorField::_criticalRegionVectorFieldInitialGuess() {
 void VectorField::_detectSmallCriticalRegionandClear() {
 
 	// ---- Delete all the tetra element (both tensile and compress region) that not have enough neighbor ---- //
-	int smallRegionSize = 20;
+	int smallRegionSize = 10;
 
 	int stressEleNum = 0, removeEleNum_compress = 0;
 	int tensileEleNum = 0, removeEleNum_tensile = 0;
@@ -117,7 +174,7 @@ void VectorField::_detectSmallCriticalRegionandClear() {
 
 }
 
-void VectorField::_fillNIERegionandSmooth(int iterTime, bool globalSmooth) {
+void VectorField::fillNIERegionandSmooth(int iterTime, bool globalSmooth) {
 
 	// initialize the NIE region vector field value
 	for (GLKPOSITION Pos = tetMesh->GetTetraList().GetHeadPosition(); Pos;) {
@@ -248,6 +305,8 @@ void VectorField::_smoothVectorFieldCriticalRegion() {
 		}
 	}
 
+
+
 }
 
 void VectorField::_optOrientationBetweenRegions() {
@@ -334,13 +393,13 @@ void VectorField::_optOrientationBetweenRegions() {
 
 	int minIter; energyIter.minCoeff(&minIter);
 
+	//minIter = 13;
 	Eigen::VectorXi optOrder = order.row(minIter);
 
 	this->_changeCriticalRegionFieldDir(optOrder);
 	
 	std::cout << "final energy order index" << minIter << " = " << 
 		this->_iterFillNIEandComputeEnergy(NIETetNum, NIEFaceNum, A) << " with order " << order.row(minIter) << std::endl;
-
 
 	//std::cout << energyIter << std::endl;
 
@@ -455,11 +514,11 @@ double VectorField::_iterFillNIEandComputeEnergy(
 		QMeshFace* Face = (QMeshFace*)tetMesh->GetFaceList().GetNext(Pos);
 		if (Face->GetLeftTetra() == nullptr || Face->GetRightTetra() == nullptr) continue;
 
-		/*lapEnergy += Face->CalArea() *
-			pow(1 - Face->GetLeftTetra()->vectorField.dot(Face->GetRightTetra()->vectorField), 3);*/
-
 		lapEnergy += Face->CalArea() *
-			pow((Face->GetLeftTetra()->vectorField - Face->GetRightTetra()->vectorField).norm(), 4);
+			pow(1 - abs(Face->GetLeftTetra()->vectorField.dot(Face->GetRightTetra()->vectorField)), 2);
+
+		/*lapEnergy += Face->CalArea() *
+			pow((Face->GetLeftTetra()->vectorField - Face->GetRightTetra()->vectorField).norm(), 4);*/
 	}
 
 	return lapEnergy;

@@ -1,6 +1,5 @@
 #include "stdafx.h"
 #include "isoSurface.h"
-#include "GLKMatrixLib.h"
 #include <omp.h>
 #include <iostream>
 #include <fstream>

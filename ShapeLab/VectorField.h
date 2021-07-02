@@ -8,7 +8,11 @@ public:
 	~VectorField() {};
 	QMeshPatch* tetMesh;
 
-	void initMeshVectorFieldCompute();
+	void initMeshVectorFieldCompute(bool manual);
+
+	void flipSelectedRegion();
+	void deleteSelectedRegion();
+	void fillNIERegionandSmooth(int iterTime, bool globalSmooth);
 
 private:
 	int selectedTetraNum = 0;
@@ -28,10 +32,6 @@ private:
 	void _changeCriticalRegionFieldDir(Eigen::VectorXi& orderiter);
 	double _iterFillNIEandComputeEnergy(
 		int NIETetNum, int NIEFaceNum, Eigen::SparseMatrix<double>& A);
-
-
-
-	void _fillNIERegionandSmooth(int iterTime, bool globalSmooth);
 
 	void _detectNeighborTetrabyNode(std::vector< QMeshTetra* >& TetraSet, 
 		QMeshTetra* Tetra, bool checkProcess, int ele_type, bool face_node);

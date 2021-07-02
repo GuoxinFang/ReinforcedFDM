@@ -95,7 +95,7 @@ void PolygenMesh::_buildDrawShadeList(bool bVertexNormalShading)
 	glEnable(GL_NORMALIZE);
 	glEnable(GL_LIGHTING);
 
-	drawOriginalCoordinate();
+	//drawOriginalCoordinate();
 
 	isTransparent = false;
 	if (isTransparent) {
@@ -132,8 +132,8 @@ void PolygenMesh::_buildDrawShadeList(bool bVertexNormalShading)
 				if (mesh->drawgeoField == true)
 				{
 					double field = 0;
-					//for (int i = 0; i < 3; i++) field += face->GetNodeRecordPtr(i)->geoFieldValue;
-					for (int i = 0; i < 3; i++) field += face->GetNodeRecordPtr(i)->boundaryValue;
+					for (int i = 0; i < 3; i++) field += face->GetNodeRecordPtr(i)->geoFieldValue;
+					//for (int i = 0; i < 3; i++) field += face->GetNodeRecordPtr(i)->boundaryValue;
 
 					field /= 3;
 					//_changeValueToColor(-10,10, Tetra->eleStress[0], rr, gg, bb);
@@ -233,17 +233,25 @@ void PolygenMesh::_buildDrawShadeList(bool bVertexNormalShading)
 					rr = 0.8, gg = 0.5, bb = 0.5;
 				}
 				else _changeValueToColor(mesh->GetIndexNo(), rr, gg, bb);
+				//mesh->drawgeoField = true;
 
 				if (mesh->drawgeoField == true)
 				{
 					double field = 0;
-					for (int i = 0; i < 3; i++) field += face->GetNodeRecordPtr(i)->geoFieldValue;
+					
+					for (int i = 0; i < 3; i++) field += face->GetNodeRecordPtr(i)->zigzagValue;
+
+					//for (int i = 0; i < 3; i++) field += face->GetNodeRecordPtr(i)->geoFieldValue;
 					//for (int i = 0; i < 3; i++) field += face->GetNodeRecordPtr(i)->boundaryValue;
 
 					field /= 3;
 					//_changeValueToColor(-10,10, Tetra->eleStress[0], rr, gg, bb);
 					_changeValueToColor(1, 0, field, rr, gg, bb);
+					//_changeValueToColorGray(1, 0, field, rr, gg, bb);
+
 				}
+
+				//_changeValueToColor(meshList.GetCount(), -1, mesh->GetIndexNo(), rr, gg, bb); // draw filed based on order
 
 				glColor3f(rr, gg, bb);
 				this->drawSingleFace(face);
@@ -290,6 +298,7 @@ void PolygenMesh::_buildDrawMeshList()
 				rr = 0.2; gg = 0.2; bb = 0.2;
 
 				//if (edge->IsBoundaryEdge() == false) continue; // not draw boundary edge
+
 				if (mesh->includeSupportRegion){
 					if (edge->importantSupportEdge == false) continue;
 				}
@@ -348,6 +357,7 @@ void PolygenMesh::_buildDrawMeshList()
 
 				if (edge->inner && (this->meshType == INIT_TET || this->meshType == SUPPORT_TET)) continue;
 				
+
 				glColor3f(rr, gg, bb);
 				if (edge->selected) glColor3f(0.6, 0.6, 1.0);
 
@@ -374,6 +384,9 @@ void PolygenMesh::_buildDrawMeshList()
 				if (edge->isInsideBoundaryTPathRegion) continue;
 
 				_changeValueToColor(mesh->GetIndexNo(), rr, gg, bb);
+
+				//rr = 0.2; gg = 0.2; bb = 0.2;
+
 				glColor3f(rr, gg, bb);
 
 				this->drawSingleEdge(edge);
@@ -487,6 +500,7 @@ void PolygenMesh::_buildDrawNodeList()
 					_changeValueToColor(1, 0, node->guideFieldValue, rr, gg, bb); // draw guidance field
 				
 				if (node->isShadowNode) { rr = 1.0; gg = 0.1; bb = 0.0; }
+
 
 				glColor3f(rr, gg, bb);
 
@@ -1306,6 +1320,32 @@ void PolygenMesh::_changeValueToColor(double maxValue, double minValue, double V
 //        if (nBlue<0.95) nBlue=0.95f;
 //        return;
 //    }
+}
+
+void PolygenMesh::_changeValueToColorGray(double maxValue, double minValue, double Value,
+	float& nRed, float& nGreen, float& nBlue)
+{
+	//	Value=fabs(Value);
+
+	if (Value <= minValue)
+	{
+		nRed = 0.1;
+		nGreen = 0.1;
+		nBlue = 0.1;
+		return;
+	}
+
+	if ((maxValue - minValue) < 0.000000000001)
+	{
+		nRed = 0.9;
+		nGreen = 0.9;
+		nBlue = 0.9;
+		return;
+	}
+
+	double temp = (Value - minValue) / (maxValue - minValue);
+
+	nRed = (float)(temp);	nGreen = (float)(temp); nBlue = (float)(temp);	return;
 }
 
 void PolygenMesh::ImportOBJFile(char *filename, std::string modelName)

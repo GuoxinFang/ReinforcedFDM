@@ -13,5 +13,4 @@ public:
 
 	void compTetMeshVolumeMatrix(QMeshPatch* tetMesh);
 
-
 };

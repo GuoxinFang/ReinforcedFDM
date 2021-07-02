@@ -1,6 +1,5 @@
 ﻿#include "stdafx.h"
 #include "GuidanceField.h"
-#include "GLKMatrixLib.h"
 #include <omp.h>
 #include <iostream>
 #include <fstream>

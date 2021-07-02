@@ -37,6 +37,7 @@ private:
     Eigen::SimplicialCholesky<Eigen::SparseMatrix<double>> poissonSolver;
 
     void _initBoundaryHeatKernel();
+    void _initBoundaryHeatKernel_CCF();
 
     int detectGenus();
 

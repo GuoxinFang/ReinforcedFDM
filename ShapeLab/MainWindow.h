@@ -4,32 +4,24 @@
 #include <QMainWindow>
 #include <QSignalMapper>
 #include <QStandardItemModel>
-#include "../GLKLib/GLKLib.h"
-#include "../QMeshLib/PolygenMesh.h"
-#include <omp.h>
 #include <QTimer>
 #include <QLabel>
+#include <omp.h>
 
-#include "../QMeshLib/BSPTree.h"
-#include "../QMeshLib/QMeshVoxel.h"
+#include "../GLKLib/GLKLib.h"
+#include "../QMeshLib/PolygenMesh.h"
 
-#include "../QMeshLib/BSPTreeOperation.h"
-#include "../QMeshLib/QMeshVoxelOperation.h"
-#include "../QMeshLib/VOXSetStructure.h"
 
 #include "fileIO.h"
 #include "meshOperator.h"
+
 #include "PrincipleStressField.h"
-#include "GuidanceField.h"
 #include "VectorField.h"
 #include "ScalarField.h"
 #include "SurfaceGuidanceField.h"
-#include "FabricationDirectionDetection.h"
-
 #include "toolpathgeneration.h"
 #include "heatmethodfield.h"
 #include "heatMethod.h"
-#include "FabricationChecking.h"
 #include "isoSurface.h"
 
 namespace Ui {
@@ -40,12 +32,19 @@ class MainWindow : public QMainWindow
 {
 	Q_OBJECT
 
-	/*---------------------------------*/
-	/*----System Function / File IO----*/
-
 public:
 	explicit MainWindow(QWidget* parent = 0);
 	~MainWindow();
+
+	//-------file IO-------//
+private slots:
+	void open();
+	void save();
+
+	void saveSelection();
+	void readSelection();
+
+	void exportMeshtoAbaqus(); // -- ABAQUS file IO
 
 protected:
 	void dragEnterEvent(QDragEnterEvent* event);
@@ -55,19 +54,9 @@ private:
 	fileIO* fileIOObject;
 	meshOperator* meshOperatorObject;
 	PrincipleStressField* stressFieldComp;
-	GuidanceField* GuideFieldComp;
+
 
 private slots:
-	void open();
-	void save();
-
-	void saveSelection();
-	void readSelection();
-
-private slots:
-
-	void exportMeshtoAbaqus(); // -- ABAQUS file IO
-
 	void autoScroll();
 
 	void signalNavigation(int flag);
@@ -75,23 +64,15 @@ private slots:
 	void mouseMoveEvent(QMouseEvent* event);
 	void on_pushButton_clearAll_clicked();
 	void on_treeView_clicked(const QModelIndex& index);
-	void changeColorValue();
 	void usingFaceNormalShade();
 	void usingNodeNormalShade();
 	void changeIsoLayerDisplay();
-	void changeVoxelLayerDisplay();
-	void saveVoxelLayerOrder();
-	void loadVoxelLayerOrder();
-	void generateVoxelfromPolygonMesh();
-	void doConvexPeelingOrderCompute();
+	
 	void viewAllIsoLayerandOffsetDisplay();
-	void transformTetrahedralIsoValuetoVoxel();
 	void compute_LayerThickness_and_Visulize();
 
 	void drawSparseVectorField();
 
-	void shiftToOrigin();
-	void scalarModelSize(); // -- scale - rotate model (Tetrahedral mesh)
 
 public slots:
 
@@ -100,7 +81,6 @@ public slots:
 
 	void compPrincipleStressField();
 	void changeTensileandCompressRegion();
-	void inputFEMResult(); // -- ABAQUS file IO
 
 	/*--------------------------------------------------------*/
 	/* Guidence Field Computing (Vector Field + Scalar Field) */
@@ -112,43 +92,16 @@ public slots:
 	void doComputeStressField_vectorDeleteRegion();
 	void doComputeStressField_scalarFieldComp();
 
-	void drawScalarFieldGradient();
-
 	/*-------------------------------------*/
 	/*---- ISO surface generation / IO ----*/
 
 	void buildIsoSurface();
-	void buildIsoSurface_fromVoxelField();
-	void buildIsoSurface_supportMesh();
 
 	void isoSurfaceFieldComputingforToolPathGeneration();
-	void transformVolumeMeshtoSurface();
-	void surfaceMeshHeatMethodComp();
 
 	void saveIsoLayer();
-
-
-	/*------------------------------*/
-	/*---- Fabrication checking ----*/
-
 	void flipISOSurfaceOrder();
-
-	void findingFabricationDirection();
-
-	void computeSupportingStructure();
-	void fabricationBuildSupportNode();
-	void fabricationSelectSupportRegion();
-
-	void fabrication_intput_support_tetmesh();
-	void fabrication_generate_delete_useless_support_surface();
-	void fabrication_Trimming_ConvexHull();
-	void inputGeneratedCurveLayer_fabrication();
-	void objtoofffile_fabrication();
-
-	void fabrication_collisionChecking();
-
 	void deselectAllinModelTree();
-	void OnMeshoperationSubstraction();
 
 private:
 	Ui::MainWindow *ui;
@@ -162,16 +115,14 @@ private:
 
 private:
 	void createActions();
+	void createMainFunctionActions();
 	void createTreeView();
 	void QTgetscreenshoot();
-	void LoadPlatformMesh(QMeshPatch* model);
 	
 	// TRUE input nozzle, otherwise input platform
 	PolygenMesh* _loadPlatformAndNozzle(bool nozzleinput);
 
 	void _inputInstalledIsoSurfaceSet(PolygenMesh* isoSurfaceSet, PolygenMesh* tetModel);
-
-	PolygenMesh* inputGeneratedCurveLayer();
 
 	PolygenMesh *getSelectedPolygenMesh();
 
@@ -181,11 +132,6 @@ private:
 	QStandardItemModel *treeModel;
 
 	isoSurface *SurfaceGenerate;
-	VOXELSET *voxSet;
-	FabricationProcess *fabProcess;
-
-	//PolygenMesh *voxelMesh;
-	//QuadTrglMesh *platformMesh;
 
 	/*---------------------------*/
 	/*----Toolpath generation----*/
@@ -196,7 +142,6 @@ private slots:
 	void generateToolPath_StressField();
 
 	void generateToolPathforAllLayer_meshChecking();
-	void generateToolPathforAllLayer_memoryReduce();
 
 	void outputSingleToolPath();
 

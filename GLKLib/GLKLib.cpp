@@ -1,9 +1,7 @@
 #include "GLKLib.h"
 #include "GLKCameraTool.h"
 #include "InteractiveTool.h"
-#include "../QMeshLib/QMeshPatch.h"
-#include "../QMeshLib/QMeshNode.h"
-#include "../QMeshLib/QMeshFace.h"
+
 #include "GLKGeometry.h"
 #include <gl/glu.h>
 #include <QPainter>
@@ -783,134 +781,134 @@ void GLKLib::drawBackground(QPainter *painter)
     painter->drawRect(rect());
 }
 
-GLubyte* GLKLib::GetColorImage(QMeshPatch *Patch, int w, int h, double *range, double *centroid)
-{
-    GLubyte *pixelColor = new GLubyte[w*h*3*sizeof(GLubyte)];
-//	CDC *pDC1 = m_pWnd->GetWindowDC();
-//	if (!pDC1) return pixelColor;
-//	wglMakeCurrent(pDC1->m_hDC,m_hRC);
-    makeCurrent();
-
-    glDisable(GL_STENCIL_TEST);
-    glEnable(GL_DEPTH_TEST);
-    glDisable(GL_LIGHTING);
-
-    glViewport(0,0,w,h);
-//    glViewport(0,0,m_SizeX,m_SizeY);
-    glMatrixMode(GL_PROJECTION);
-    glLoadIdentity();
-
-    float rx, ry;
-    GetRotation(rx,ry);
-
-    double boundingBox[8][3];
-    int m = 0;
-    for (int i=0; i<2; i++){
-        for (int j=2; j<4; j++){
-            for (int k=4; k<6; k++){
-                boundingBox[m][0] = range[i]-centroid[0];
-                boundingBox[m][1] = range[j]-centroid[1];
-                boundingBox[m][2] = range[k]-centroid[2];
-                m++;
-            }
-        }
-    }
-
-    double xmin, ymin, zmin, xmax, ymax, zmax;
-    xmin=1.0e+32;	ymin=1.0e+32;	zmin=1.0e+32;
-    xmax=-1.0e+32;	ymax=-1.0e+32;	zmax=-1.0e+32;
-    double csy,sny,csx,snx;
-    double ratio=3.1451592654/180.0;
-    double xx,yy,zz,x1,y1,z1,x2,y2,z2;
-    csy=cos(ry*ratio);		sny=sin(ry*ratio);
-    csx=cos(rx*ratio);		snx=sin(rx*ratio);
-    for (int i=0; i<8; i++){
-        xx=boundingBox[i][0];
-        yy=boundingBox[i][1];
-        zz=boundingBox[i][2];
-        x1=zz*sny+xx*csy;
-        y1=yy;
-        z1=zz*csy-xx*sny;
-        x2=x1;
-        y2=y1*csx-z1*snx;
-        z2=y1*snx+z1*csx;
-        if (x2 > xmax) xmax = x2;
-        if (y2 > ymax) ymax = y2;
-        if (z2 > zmax) zmax = z2;
-        if (x2 < xmin) xmin = x2;
-        if (y2 < ymin) ymin = y2;
-        if (z2 < zmin) zmin = z2;
-    }
-    double r = 0.15;
-    xmin -= r*(xmax-xmin); xmax += r*(xmax-xmin);
-    ymin -= r*(ymax-ymin); ymax += r*(ymax-ymin);
-    zmin -= r*(zmax-zmin); zmax += r*(zmax-zmin);
-
-    //glOrtho(xmin,xmax,ymin,ymax,zmin,zmax);
-    //glOrtho(xmin,xmax,ymin,ymax,-175,70);
-    glOrtho(xmin,xmax,ymin,ymax,-zmax,-zmin);
-    //glOrtho(-xmax,-xmin,-ymax,-ymin,-zmax,-zmin);
-    //printf("%.5lf %.5lf %.5lf %.5lf %.5lf %.5lf ",xmin,xmax,ymin,ymax,zmax,zmin);
-
-    glMatrixMode(GL_MODELVIEW);
-    glLoadIdentity();
-
-    glClearDepth(1.0);
-
-    glClear( GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT );
-    glClearColor(1.0,1.0,1.0,1.0);
-
-    glDepthFunc(GL_LESS);
-    glPushMatrix();
-
-    glRotatef(rx,1,0,0);
-    glRotatef(ry,0,1,0);
-    glTranslated(-centroid[0],-centroid[1],-centroid[2]);
-
-    GLfloat rr, gg, bb;
-    rr=0.0; gg=0.0; bb=-1.0;
-    int index = 0;
-    for (GLKPOSITION Pos=Patch->GetFaceList().GetHeadPosition(); Pos!=NULL;)
-    {
-        QMeshFace *temp=(QMeshFace *)(Patch->GetFaceList().GetNext(Pos));
-        int i = temp->GetEdgeNum();
-        glBegin(GL_POLYGON);
-        const int max_edge_num = 10;
-        QMeshNode *node[max_edge_num];
-        int in = temp->GetIndexNo();
-        bb += 1.0;
-        if (bb > 255.0){
-            gg+=1.0; bb=0.0;
-            if (gg > 255.0){
-                rr += 1.0; gg=0.0; bb=0.0;
-            }
-        }
-        if (rr>255.0 && gg>255.0 && bb>255.0){
-            printf("Color Index out of Memory");
-            return pixelColor;
-        }
-        glColor3f(rr/255.0,gg/255.0,bb/255.0);
-        for(int j = 0; j < i; j++){
-            double x,y,z;
-            node[j]=temp->GetNodeRecordPtr(j);
-            node[j]->GetCoord3D(x,y,z);
-            glVertex3d(x,y,z);
-        }
-        glEnd();
-    }
-    glReadPixels(0,0,w,h,GL_RGB,GL_UNSIGNED_BYTE, pixelColor);
-//    glReadPixels(0,0,m_SizeX,m_SizeY,GL_RGB,GL_UNSIGNED_BYTE,pixelColor);
-
-    glPopMatrix();
-    glDisable(GL_DEPTH_TEST);
-//	SwapBuffers(pDC1->m_hDC);
-//	wglMakeCurrent(NULL, NULL);
+//GLubyte* GLKLib::GetColorImage(QMeshPatch *Patch, int w, int h, double *range, double *centroid)
+//{
+//    GLubyte *pixelColor = new GLubyte[w*h*3*sizeof(GLubyte)];
+////	CDC *pDC1 = m_pWnd->GetWindowDC();
+////	if (!pDC1) return pixelColor;
+////	wglMakeCurrent(pDC1->m_hDC,m_hRC);
+//    makeCurrent();
+//
+//    glDisable(GL_STENCIL_TEST);
+//    glEnable(GL_DEPTH_TEST);
+//    glDisable(GL_LIGHTING);
+//
+//    glViewport(0,0,w,h);
+////    glViewport(0,0,m_SizeX,m_SizeY);
+//    glMatrixMode(GL_PROJECTION);
+//    glLoadIdentity();
+//
+//    float rx, ry;
+//    GetRotation(rx,ry);
+//
+//    double boundingBox[8][3];
+//    int m = 0;
+//    for (int i=0; i<2; i++){
+//        for (int j=2; j<4; j++){
+//            for (int k=4; k<6; k++){
+//                boundingBox[m][0] = range[i]-centroid[0];
+//                boundingBox[m][1] = range[j]-centroid[1];
+//                boundingBox[m][2] = range[k]-centroid[2];
+//                m++;
+//            }
+//        }
+//    }
+//
+//    double xmin, ymin, zmin, xmax, ymax, zmax;
+//    xmin=1.0e+32;	ymin=1.0e+32;	zmin=1.0e+32;
+//    xmax=-1.0e+32;	ymax=-1.0e+32;	zmax=-1.0e+32;
+//    double csy,sny,csx,snx;
+//    double ratio=3.1451592654/180.0;
+//    double xx,yy,zz,x1,y1,z1,x2,y2,z2;
+//    csy=cos(ry*ratio);		sny=sin(ry*ratio);
+//    csx=cos(rx*ratio);		snx=sin(rx*ratio);
+//    for (int i=0; i<8; i++){
+//        xx=boundingBox[i][0];
+//        yy=boundingBox[i][1];
+//        zz=boundingBox[i][2];
+//        x1=zz*sny+xx*csy;
+//        y1=yy;
+//        z1=zz*csy-xx*sny;
+//        x2=x1;
+//        y2=y1*csx-z1*snx;
+//        z2=y1*snx+z1*csx;
+//        if (x2 > xmax) xmax = x2;
+//        if (y2 > ymax) ymax = y2;
+//        if (z2 > zmax) zmax = z2;
+//        if (x2 < xmin) xmin = x2;
+//        if (y2 < ymin) ymin = y2;
+//        if (z2 < zmin) zmin = z2;
+//    }
+//    double r = 0.15;
+//    xmin -= r*(xmax-xmin); xmax += r*(xmax-xmin);
+//    ymin -= r*(ymax-ymin); ymax += r*(ymax-ymin);
+//    zmin -= r*(zmax-zmin); zmax += r*(zmax-zmin);
+//
+//    //glOrtho(xmin,xmax,ymin,ymax,zmin,zmax);
+//    //glOrtho(xmin,xmax,ymin,ymax,-175,70);
+//    glOrtho(xmin,xmax,ymin,ymax,-zmax,-zmin);
+//    //glOrtho(-xmax,-xmin,-ymax,-ymin,-zmax,-zmin);
+//    //printf("%.5lf %.5lf %.5lf %.5lf %.5lf %.5lf ",xmin,xmax,ymin,ymax,zmax,zmin);
+//
+//    glMatrixMode(GL_MODELVIEW);
+//    glLoadIdentity();
+//
+//    glClearDepth(1.0);
+//
+//    glClear( GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT );
+//    glClearColor(1.0,1.0,1.0,1.0);
+//
+//    glDepthFunc(GL_LESS);
+//    glPushMatrix();
+//
+//    glRotatef(rx,1,0,0);
+//    glRotatef(ry,0,1,0);
+//    glTranslated(-centroid[0],-centroid[1],-centroid[2]);
+//
+//    GLfloat rr, gg, bb;
+//    rr=0.0; gg=0.0; bb=-1.0;
+//    int index = 0;
+//    for (GLKPOSITION Pos=Patch->GetFaceList().GetHeadPosition(); Pos!=NULL;)
+//    {
+//        QMeshFace *temp=(QMeshFace *)(Patch->GetFaceList().GetNext(Pos));
+//        int i = temp->GetEdgeNum();
+//        glBegin(GL_POLYGON);
+//        const int max_edge_num = 10;
+//        QMeshNode *node[max_edge_num];
+//        int in = temp->GetIndexNo();
+//        bb += 1.0;
+//        if (bb > 255.0){
+//            gg+=1.0; bb=0.0;
+//            if (gg > 255.0){
+//                rr += 1.0; gg=0.0; bb=0.0;
+//            }
+//        }
+//        if (rr>255.0 && gg>255.0 && bb>255.0){
+//            printf("Color Index out of Memory");
+//            return pixelColor;
+//        }
+//        glColor3f(rr/255.0,gg/255.0,bb/255.0);
+//        for(int j = 0; j < i; j++){
+//            double x,y,z;
+//            node[j]=temp->GetNodeRecordPtr(j);
+//            node[j]->GetCoord3D(x,y,z);
+//            glVertex3d(x,y,z);
+//        }
+//        glEnd();
+//    }
+//    glReadPixels(0,0,w,h,GL_RGB,GL_UNSIGNED_BYTE, pixelColor);
+////    glReadPixels(0,0,m_SizeX,m_SizeY,GL_RGB,GL_UNSIGNED_BYTE,pixelColor);
+//
+//    glPopMatrix();
+//    glDisable(GL_DEPTH_TEST);
+////	SwapBuffers(pDC1->m_hDC);
+////	wglMakeCurrent(NULL, NULL);
+////    update();
 //    update();
-    update();
-//    doneCurrent();
-
-    return pixelColor;
-}
+////    doneCurrent();
+//
+//    return pixelColor;
+//}
 
 void GLKLib::GLPickInit()
 {

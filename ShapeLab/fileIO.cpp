@@ -1,6 +1,5 @@
 #include "stdafx.h"
 #include "fileIO.h"
-#include "GLKMatrixLib.h"
 #include <omp.h>
 #include <iostream>
 #include <fstream>
@@ -121,7 +120,9 @@ void fileIO::exportMeshtoAbaqusFEM(PolygenMesh* polygenMesh) {
 	char* p = strtok(cstr, split);
 
 	char output_filename[256];
-	strcpy(output_filename, "..\\Model\\Abaqus_INP\\");
+	//strcpy(output_filename, "..\\Model\\Abaqus_INP\\");
+	strcpy(output_filename, "../");
+
 	strcat(output_filename, cstr);
 	char filetype[64];
 	strcpy(filetype, ".inp");

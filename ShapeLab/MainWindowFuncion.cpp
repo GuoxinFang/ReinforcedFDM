@@ -1,9 +1,33 @@
 #include "stdafx.h"
-
 #include "MainWindow.h"
 #include "ui_MainWindow.h"
 
 using namespace std;
+
+void MainWindow::createMainFunctionActions() {
+
+	connect(ui->pushButton_compPrincipleStressField, SIGNAL(released()), this, SLOT(compPrincipleStressField()));
+
+	connect(ui->pushButton_CompGuideField, SIGNAL(released()), this, SLOT(compGuidenceField()));
+
+	connect(ui->pushButtonBuildIsoSurface, SIGNAL(released()), this, SLOT(buildIsoSurface()));
+
+	connect(ui->pushButton_compFieldonIsoSurface, SIGNAL(released()), this, SLOT(isoSurfaceFieldComputingforToolPathGeneration()));
+
+	connect(ui->pushButton_outputIsoLayer, SIGNAL(released()), this, SLOT(saveIsoLayer()));
+
+	// step-by-step field compute
+
+	connect(ui->pushButton_CompVectorField, SIGNAL(released()), this, SLOT(doComputeStressField_vectorFieldComp()));
+	connect(ui->pushButton_CompScalarField, SIGNAL(released()), this, SLOT(doComputeStressField_scalarFieldComp()));
+
+	connect(ui->pushButton_VectorFieldFlipNormal, SIGNAL(released()), this, SLOT(doComputeStressField_vectorFlipNormal()));
+	connect(ui->pushButton_VectorFieldDeleteRegion, SIGNAL(released()), this, SLOT(doComputeStressField_vectorDeleteRegion()));
+
+	// toolpath generation
+	connect(ui->pushButton_directToolPathGeneration, SIGNAL(released()), this, SLOT(directToolpathGeneration()));
+
+}
 
 /*----------------------------------*/
 /* Principle Stress Field Computing */
@@ -16,7 +40,7 @@ void MainWindow::compPrincipleStressField()
 
 	if (ui->checkBox_3DCompute->isChecked()) tetMesh->spaceComp = true;
 
-	//--------------------------------------------------------------------
+	//------------------------------------------------
 	//  Input FEM result and compute principle stress
 
 	stressFieldComp = new PrincipleStressField(tetMesh);
@@ -28,16 +52,21 @@ void MainWindow::compPrincipleStressField()
 	meshOperatorObject->compTetMeshVolumeMatrix(tetMesh);
 
 	fileIOObject->outputPrincipleStressValueforCriticalRegion(initModel);
-	ui->pushButton_CompGuideField->setEnabled(true);
 
 	std::cout << "Finish input FEM result and propreces the system!" << std::endl << std::endl;
 
 	pGLK->refresh(true);
+
+	ui->pushButton_CompGuideField->setEnabled(true);
+
 }
 
 /*--------------------------*/
 /* Guidence Field Computing */
 
+/* auto generate the guidance field in one-go */
+VectorField* vectorFieldComp;
+ScalarField* scalarFieldComp;
 void MainWindow::compGuidenceField()
 {
 	PolygenMesh* initModel = this->_detectPolygenMesh(INIT_TET);
@@ -47,18 +76,61 @@ void MainWindow::compGuidenceField()
 	//--------------------------------------------------------------------
 	//  Vector Field Computing
 
-	VectorField* vectorFieldComp = new VectorField(tetMesh, false);
-	vectorFieldComp->initMeshVectorFieldCompute();
+	vectorFieldComp = new VectorField(tetMesh, false);
+	vectorFieldComp->initMeshVectorFieldCompute(false);
 
 	std::cout << " Finish generate the vector field based on principle stress distribution! " << std::endl;
 
 	//--------------------------------------------------------------------
 	//  Scalar Field Computing
 
-	/*ScalarField* scalarFieldComp = new ScalarField(tetMesh, false);
-	scalarFieldComp->compScalarField_initMesh();*/
+	scalarFieldComp = new ScalarField(tetMesh, false);
+	scalarFieldComp->compScalarField_initMesh();
 
 	pGLK->refresh(true);
+}
+
+/* manually generate the guidance field step-by-step */
+
+void MainWindow::doComputeStressField_vectorFieldComp() {
+
+	PolygenMesh* initModel = this->_detectPolygenMesh(INIT_TET);
+	if (initModel == false) { std::cout << "NO mesh in the system!"; return; }
+	QMeshPatch* tetMesh = (QMeshPatch*)initModel->GetMeshList().GetHead();
+
+	vectorFieldComp = new VectorField(tetMesh, false);
+	vectorFieldComp->initMeshVectorFieldCompute(true);
+	pGLK->refresh(true);
+}
+
+void MainWindow::doComputeStressField_vectorFlipNormal() {
+
+	vectorFieldComp->flipSelectedRegion();
+	pGLK->refresh(true);
+
+}
+
+void MainWindow::doComputeStressField_scalarFieldComp() {
+
+	PolygenMesh* initModel = this->_detectPolygenMesh(INIT_TET);
+	if (initModel == false) { std::cout << "NO mesh in the system!"; return; }
+	QMeshPatch* tetMesh = (QMeshPatch*)initModel->GetMeshList().GetHead();
+
+	vectorFieldComp->fillNIERegionandSmooth(200, true);
+
+	scalarFieldComp = new ScalarField(tetMesh, false);
+	scalarFieldComp->compScalarField_initMesh();
+
+	pGLK->refresh(true);
+}
+
+void MainWindow::doComputeStressField_vectorDeleteRegion() {
+
+	vectorFieldComp->deleteSelectedRegion();
+
+	//GuideFieldComp->runFieldComputing_DeleteRegion();
+	pGLK->refresh(true);
+
 }
 
 /*----------------------------------------------------------------------------------*/
@@ -86,80 +158,23 @@ void MainWindow::buildIsoSurface()
 	viewAllIsoLayerandOffsetDisplay();
 }
 
-/*-----------------------------------------------------------------------------------------*/
-/* Detect best printing direction (notice that this can be time-consuming without openmp!) */
-
-void MainWindow::findingFabricationDirection() {
-
-	//-------------------------------------------------------------------------------------------------
-	//  Detect Mesh for fabrcation direction checking: initial tetrahedral mesh, iso-layer and platform
-
-	PolygenMesh* tetModel = _detectPolygenMesh(INIT_TET);
-	if (tetModel == NULL) { std::cout << " # init tetModel not found!" << std::endl; return; }
-
-	PolygenMesh* isosurfaceSet = _detectPolygenMesh(INIT_LAYERS);
-	
-	// Notice that this is used for DEBUG purpose!
-	if (isosurfaceSet == NULL) {
-		this->_inputInstalledIsoSurfaceSet(isosurfaceSet, tetModel);
-		if (isosurfaceSet->GetMeshList().GetCount() == 0) { 
-			std::cout << " # NO isosurface installed!" << std::endl; return; }
-	}
-
-	//-------------------------------------------------------------------------------------------------
-	//  Best printing direction detection
-
-	FabricationDirectionDetection* fabDirDetectOperator =
-		new FabricationDirectionDetection(tetModel, this->_loadPlatformAndNozzle(false), isosurfaceSet);
-
-	bool threeDSpaceDetect = ui->checkBox_3DCompute->isChecked();
-	bool runFabDirDetect = ui->checkBox_computeFabricationDirection->isChecked();
-	double installed2DAngle = ui->spinBox_ComputedAnlge->value();
-
-	long time = clock();
-
-	if (!threeDSpaceDetect) fabDirDetectOperator->runFabDir2DCaseDetection(runFabDirDetect, installed2DAngle);
-	
-	printf("finding best fabrication direction takes %ld ms.\n", clock() - time);
-
-	pGLK->refresh(true);
-
-	return;
-
-
-	if(threeDSpaceDetect) fabDirDetectOperator->runFabDir2DCaseDetection(runFabDirDetect, installed2DAngle);
-	else fabDirDetectOperator->runFabDir2DCaseDetection( runFabDirDetect, installed2DAngle);
-
-	fabProcess = new FabricationProcess(isosurfaceSet, this->_loadPlatformAndNozzle(false), tetModel);
-	fabProcess->systemBuild = true;
-
-	if (ui->checkBox_3DCompute->isChecked())
-		fabProcess->runBestFabricationDirectionDetection(
-			ui->checkBox_computeFabricationDirection->isChecked(),
-			ui->spinBox_ComputedAnlgeAlpha->value(),
-			ui->spinBox_ComputedAnlgeBeta->value(),
-			ui->checkBox_3DrotateInverse->isChecked()
-		);
-	else
-		fabProcess->runBestFabricationDirectionDetection(
-			ui->checkBox_computeFabricationDirection->isChecked(), ui->spinBox_ComputedAnlge->value());
-
-	if (detectFlipLayerSetOrder(isosurfaceSet)) flipISOSurfaceOrder(isosurfaceSet);
-	printf("finding best fabrication direction takes %ld ms.\n", clock() - time);
-
-}
-
 /*-------------------------------------------------------------------------------------------------------*/
 /* Iso-surface field computing based on principle stress filed, used for directional toolpath generation */
 /* Notice that this function should be call after the printing direction is determined                   */
 
 void MainWindow::isoSurfaceFieldComputingforToolPathGeneration() {
 
+	Eigen::Vector3d dir;
+	PolygenMesh* initModel = this->_detectPolygenMesh(INIT_TET);
+	if (initModel->getModelName() == "bunnyhead") dir << 0.0, 1.0, 0.0;
+	else if (initModel->getModelName() == "topopt_new") dir << 1.0, 0.0, 0.0;
+	else dir << 1.0, 0.0, 0.0;
+
 	//----Compute the vector field in every layer - for the toolpath generation!
 	PolygenMesh* initModelLayerSet = this->_detectPolygenMesh(INIT_LAYERS);
 
 	SurfaceGuidanceField* surfaceGuidFieldComp = new SurfaceGuidanceField();
-
+	surfaceGuidFieldComp->inputDir = dir;
 	int index = 0;
 	for (GLKPOSITION posMesh = initModelLayerSet->GetMeshList().GetHeadPosition(); posMesh != nullptr;) {
 		QMeshPatch* isoLayer = (QMeshPatch*)initModelLayerSet->GetMeshList().GetNext(posMesh);
@@ -170,14 +185,4 @@ void MainWindow::isoSurfaceFieldComputingforToolPathGeneration() {
 
 }
 
-void MainWindow::surfaceMeshHeatMethodComp() {
 
-	PolygenMesh* initModelLayerSet = this->_detectPolygenMesh(SURFACE_MESH);
-	QMeshPatch* model = (QMeshPatch*)initModelLayerSet->GetMeshList().GetHead();
-
-	heatMethod* heatMethodOperator = new heatMethod(model);
-	heatMethodOperator->compBoundaryHeatKernel();
-	model->drawgeoField = true;
-
-	pGLK->refresh(true);
-}

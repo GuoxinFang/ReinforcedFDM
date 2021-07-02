@@ -37,7 +37,12 @@ void ScalarField::compScalarField_initMesh() {
 			}
 		}
 
-		for (int i = 0; i < 3; i++) b(3*Tetra->GetIndexNo() + i) = Tetra->vectorField(i) * weight; // infill B
+
+		Vector3d CCFvectorField; CCFvectorField << 0.0, 1.0, 0.0;
+		for (int i = 0; i < 3; i++) 
+			b(3*Tetra->GetIndexNo() + i) = Tetra->vectorField(i) * weight; // infill B
+		    //b(3 * Tetra->GetIndexNo() + i) = CCFvectorField(i) * weight; // infill B for CCF printing
+
 	}
 
 	Parameter.setFromTriplets(ParaTriplet.begin(), ParaTriplet.end());

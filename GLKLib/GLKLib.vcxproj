@@ -11,9 +11,9 @@
     </ProjectConfiguration>
   </ItemGroup>
   <PropertyGroup Label="Globals">
-    <ProjectGuid>{04A8FDCE-1173-321F-9D21-901B125D6784}</ProjectGuid>
+    <ProjectGuid>{C61CEB85-377A-3370-BEF5-2F1B3B7A0498}</ProjectGuid>
     <RootNamespace>GLKLib</RootNamespace>
-    <Keyword>QtVS_v303</Keyword>
+    <Keyword>QtVS_v304</Keyword>
     <WindowsTargetPlatformVersion>10.0.18362.0</WindowsTargetPlatformVersion>
     <WindowsTargetPlatformMinVersion>10.0.18362.0</WindowsTargetPlatformMinVersion>
   <QtMsBuild Condition="'$(QtMsBuild)'=='' or !Exists('$(QtMsBuild)\qt.targets')">$(MSBuildProjectDirectory)\QtMsBuild</QtMsBuild></PropertyGroup>
@@ -48,7 +48,7 @@
   
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <ClCompile>
-      <AdditionalIncludeDirectories>.\GeneratedFiles\$(ConfigurationName);.\GeneratedFiles;.;..\QMeshLib;release;C:\VulkanSDK\1.0.51.0\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>GeneratedFiles\$(ConfigurationName);GeneratedFiles;.;..\QMeshLib;release;/include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <AdditionalOptions>-Zc:rvalueCast -Zc:inline -Zc:strictStrings -Zc:throwingNew -Zc:referenceBinding -Zc:__cplusplus -w34100 -w34189 -w44996 -w44456 -w44457 -w44458 %(AdditionalOptions)</AdditionalOptions>
       <AssemblerListingLocation>release\</AssemblerListingLocation>
       <BrowseInformation>false</BrowseInformation>
@@ -80,7 +80,7 @@
   <QtMoc><CompilerFlavor>msvc</CompilerFlavor><Include>./$(Configuration)/moc_predefs.h</Include><ExecutionDescription>Moc'ing %(Identity)...</ExecutionDescription><DynamicSource>output</DynamicSource><QtMocDir>$(Configuration)</QtMocDir><QtMocFileName>moc_%(Filename).cpp</QtMocFileName></QtMoc></ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <ClCompile>
-      <AdditionalIncludeDirectories>.\GeneratedFiles\$(ConfigurationName);.\GeneratedFiles;.;..\QMeshLib;debug;C:\VulkanSDK\1.0.51.0\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>GeneratedFiles\$(ConfigurationName);GeneratedFiles;.;..\QMeshLib;debug;/include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <AdditionalOptions>-Zc:rvalueCast -Zc:inline -Zc:strictStrings -Zc:throwingNew -Zc:referenceBinding -Zc:__cplusplus -w34100 -w34189 -w44996 -w44456 -w44457 -w44458 %(AdditionalOptions)</AdditionalOptions>
       <AssemblerListingLocation>debug\</AssemblerListingLocation>
       <BrowseInformation>false</BrowseInformation>
@@ -111,24 +111,15 @@
   <QtMoc><CompilerFlavor>msvc</CompilerFlavor><Include>./$(Configuration)/moc_predefs.h</Include><ExecutionDescription>Moc'ing %(Identity)...</ExecutionDescription><DynamicSource>output</DynamicSource><QtMocDir>$(Configuration)</QtMocDir><QtMocFileName>moc_%(Filename).cpp</QtMocFileName></QtMoc></ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="GLKGeometry.cpp" />
-    <ClCompile Include="GLKGraph.cpp" />
-    <ClCompile Include="GLKHeap.cpp" />
     <ClCompile Include="GLKLib.cpp" />
-    <ClCompile Include="GLKMatrixLib.cpp" />
-    <ClCompile Include="GLKNearestNeighbor.cpp" />
     <ClCompile Include="GLKObList.cpp" />
     <ClCompile Include="GLKRational.cpp" />
-    <ClCompile Include="GLKSparseMatrix.cpp" />
-    <ClCompile Include="GLKSparseMatrixDirectSolver.cpp" />
-    <ClCompile Include="GLKSparseMatrixIterativeSolver.cpp" />
     <ClCompile Include="InteractiveTool.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GLKCameraTool.h" />
     <ClInclude Include="GLKGLList.h" />
     <ClInclude Include="GLKGeometry.h" />
-    <ClInclude Include="GLKGraph.h" />
-    <ClInclude Include="GLKHeap.h" />
     <QtMoc Include="GLKLib.h">
       
       
@@ -139,14 +130,10 @@
       
       
     </QtMoc>
-    <ClInclude Include="GLKMatrixLib.h" />
-    <ClInclude Include="GLKNearestNeighbor.h" />
     <ClInclude Include="GLKObList.h" />
     <ClInclude Include="GLKRational.h" />
-    <ClInclude Include="GLKSparseMatrix.h" />
-    <ClInclude Include="GLKSparseMatrixDirectSolver.h" />
-    <ClInclude Include="GLKSparseMatrixIterativeSolver.h" />
     <ClInclude Include="InteractiveTool.h" />
+    <ClInclude Include="resource.h" />
   </ItemGroup>
   <ItemGroup>
     

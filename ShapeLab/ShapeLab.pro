@@ -12,22 +12,9 @@ TARGET = ShapeLab
 TEMPLATE = app
 
 
-SOURCES += main.cpp\
-        MainWindow.cpp\
-	FabricationChecking.cpp\
-	heatmethodfield.cpp\
-	isoSurface.cpp\
-	LocalGlobalFieldComp.cpp\
-	StressField.cpp\	
-	toolpathgeneration.cpp
+SOURCES += *.cpp\
 
-HEADERS  += MainWindow.h\
-	FabricationChecking.h\
-	heatmethodfield.h\
-	isoSurface.h\
-	LocalGlobalFieldComp.h\
-	StressField.h\	
-	toolpathgeneration.h
+HEADERS  += *.h\
 
 FORMS    += MainWindow.ui
 
@@ -59,3 +46,15 @@ else:win32-g++:CONFIG(debug, debug|release): PRE_TARGETDEPS += $$OUT_PWD/../GLKL
 else:win32:!win32-g++:CONFIG(release, debug|release): PRE_TARGETDEPS += $$OUT_PWD/../GLKLib/release/GLKLib.lib
 else:win32:!win32-g++:CONFIG(debug, debug|release): PRE_TARGETDEPS += $$OUT_PWD/../GLKLib/debug/GLKLib.lib
 else:unix: PRE_TARGETDEPS += $$OUT_PWD/../GLKLib/libGLKLib.a
+
+#lib-openGL
+INCLUDEPATH += $$PWD/../Library/glut
+
+win32:CONFIG(release, debug|release): LIBS += -L$$OUT_PWD/../Library/glut -lglut32
+else:win32:CONFIG(debug, debug|release): LIBS += -L$$OUT_PWD/../Library/glut -lglut32
+
+win32:CONFIG(release, debug|release): LIBS += -L$$OUT_PWD/../Library/glut -lOpenGL32
+else:win32:CONFIG(debug, debug|release): LIBS += -L$$OUT_PWD/../Library/glut -lOpenGL32
+
+win32:CONFIG(release, debug|release): LIBS += -L$$OUT_PWD/../Library/glut -lGlU32
+else:win32:CONFIG(debug, debug|release): LIBS += -L$$OUT_PWD/../Library/glut -lGlU32

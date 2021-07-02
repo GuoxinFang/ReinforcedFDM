@@ -386,7 +386,7 @@ void InteractiveTool::_selectHandle(QEvent *event, mouse_event_type event_type)
 
 void InteractiveTool::GetVisibleMesh(QMeshPatch *patch)
 {
-    double centroid[3] = {0.0, 0.0, 0.0};
+   /* double centroid[3] = {0.0, 0.0, 0.0};
     for (GLKPOSITION PosNode=patch->GetNodeList().GetHeadPosition();PosNode!=NULL;) {
         QMeshNode *node=(QMeshNode *)(patch->GetNodeList().GetNext(PosNode));
         double xx, yy, zz;
@@ -442,7 +442,7 @@ void InteractiveTool::GetVisibleMesh(QMeshPatch *patch)
     }
     delete [](QMeshFace**)faceArray;
     delete []range;
-    delete []pixelColor;
+    delete []pixelColor;*/
 }
 
 

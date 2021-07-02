@@ -1,6 +1,5 @@
 #include "stdafx.h"
 #include "PrincipleStressField.h"
-#include "GLKMatrixLib.h"
 #include <omp.h>
 #include <iostream>
 #include <fstream>
@@ -233,19 +232,28 @@ void PrincipleStressField::_selectTensileandCompressiveRegion(double rangeT, dou
 		int Tnumber = floor(tensileEleNum*rangeT);
 		int Cnumber = floor(compressEleNum*rangeC);
 
+		//if (Tet->sigma_max >= 0.0) {
+		//	// ensure no singularity happen in mid/min stress
+		//	if (fabs(Tet->sigma_mid) > 2 * fabs(Tet->sigma_min) && Tet->stressIndex < Tnumber ) 
+		//		Tet->isTensileorCompressSelect = true;
+		//}
+		//else {
+		//	if (fabs(Tet->sigma_mid) > 2 * fabs(Tet->sigma_min) && Tet->stressIndex < Cnumber)
+		//		Tet->isTensileorCompressSelect = true;
+		//}
+
+		//if (fabs(Tet->sigma_max) < 3 * fabs(Tet->sigma_mid) && Tet->isTensileorCompressSelect) {
+		//	std::cout << "initial guess region!" << std::endl;
+		//	initialGuessRegionNum++;
+		//}
+
 		if (Tet->sigma_max >= 0.0) {
-			// ensure no singularity happen in mid/min stress
-			if (fabs(Tet->sigma_mid) > 2 * fabs(Tet->sigma_min) && Tet->stressIndex < Tnumber ) 
+			if (Tet->stressIndex < Tnumber)
 				Tet->isTensileorCompressSelect = true;
 		}
 		else {
-			if (fabs(Tet->sigma_mid) > 2 * fabs(Tet->sigma_min) && Tet->stressIndex < Cnumber)
+			if (Tet->stressIndex < Cnumber)
 				Tet->isTensileorCompressSelect = true;
-		}
-
-		if (fabs(Tet->sigma_max) < 3 * fabs(Tet->sigma_mid) && Tet->isTensileorCompressSelect) {
-			std::cout << "initial guess region!" << std::endl;
-			initialGuessRegionNum++;
 		}
 	}
 	std::cout << "initialGuessRegionNum = " << initialGuessRegionNum << std::endl;

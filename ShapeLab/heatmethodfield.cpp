@@ -18,6 +18,8 @@ heatMethodField::~heatMethodField(){}
 
 void heatMethodField::compBoundaryHeatKernel() {
     _initBoundaryHeatKernel();
+    //_initBoundaryHeatKernel_CCF();
+
     runHeatMethod();
 
     /*After compute, install the geo-Field to boundary field*/
@@ -70,6 +72,89 @@ void heatMethodField::_initBoundaryHeatKernel() {
             edge->GetStartPoint()->selected = true; edge->GetEndPoint()->selected = true;
         }
     }
+}
+
+void heatMethodField::_initBoundaryHeatKernel_CCF() {
+
+    /* make the boundary node belong to different set */
+
+    int meshgenus = 0;
+    int bNodeinprocessed = 0;
+
+    //get boundary node and install
+    for (GLKPOSITION Pos = surfaceMesh->GetEdgeList().GetHeadPosition(); Pos;) {
+        QMeshEdge* Edge = (QMeshEdge*)surfaceMesh->GetEdgeList().GetNext(Pos);
+        if (Edge->IsBoundaryEdge()) {
+            Edge->GetStartPoint()->isBoundaryNode = true;
+            Edge->GetEndPoint()->isBoundaryNode = true;
+        }
+    }
+    for (GLKPOSITION Pos = surfaceMesh->GetNodeList().GetHeadPosition(); Pos;) {
+        QMeshNode* Node = (QMeshNode*)surfaceMesh->GetNodeList().GetNext(Pos);
+        if (Node->isBoundaryNode){ bNodeinprocessed++; Node->processed = false; }
+    }
+
+    //cout<<"boundary node num = "<<bNodeinprocessed<<endl;
+
+    if (bNodeinprocessed == 0) std::cout << "This is a closed mesh! cannot used to generate tool path!" << std::endl;
+
+    std::vector<Eigen::VectorXi> loopVec;
+    int totalBoundaryNum = bNodeinprocessed;
+
+    while (bNodeinprocessed != 0) {
+        
+        Eigen::VectorXi indexLoop = VectorXi::Zero(totalBoundaryNum);
+
+        int index = 0;
+
+        QMeshNode* startNode; //find the start node, should always be found
+        for (GLKPOSITION Pos = surfaceMesh->GetNodeList().GetHeadPosition(); Pos;) {
+            startNode = (QMeshNode*)surfaceMesh->GetNodeList().GetNext(Pos);
+            if (startNode->isBoundaryNode && startNode->processed == false) break;
+        }
+        startNode->processed = true;
+        bNodeinprocessed--;
+        indexLoop(index) = startNode->GetIndexNo(); index++;
+
+        QMeshNode* nextNode; bool nNodeDetected;
+        do {
+            nNodeDetected = false;
+            //Notice that, node->getnodelist won't return anything since we didn't install the information!
+            for (GLKPOSITION Pos = startNode->GetEdgeList().GetHeadPosition(); Pos;) {
+                QMeshEdge* connectEdge = (QMeshEdge*)startNode->GetEdgeList().GetNext(Pos);
+                if (!connectEdge->IsBoundaryEdge()) continue;
+
+                nextNode = connectEdge->GetEndPoint();
+                if (nextNode == startNode) nextNode = connectEdge->GetStartPoint();
+
+                if (nextNode->processed == false) {
+                    bNodeinprocessed--;
+                    nNodeDetected = true;
+                    nextNode->processed = true;
+                    startNode = nextNode;
+                    indexLoop(index) = startNode->GetIndexNo(); index++;
+
+                    break;
+                }
+            }
+        } while (nNodeDetected == true);
+        meshgenus++;
+
+        loopVec.push_back(indexLoop);
+
+    }
+    std::cout << loopVec[0] << std::endl << "----------------" << std::endl;
+    for (GLKPOSITION Pos = surfaceMesh->GetNodeList().GetHeadPosition(); Pos;) {
+        QMeshNode* Node = (QMeshNode*)surfaceMesh->GetNodeList().GetNext(Pos);
+        Node->selected = false; Node->geoFieldValue = 0;
+        for (int i = 0; i < totalBoundaryNum; i++) {
+            if ( ( Node->GetIndexNo() == loopVec[1](i) || Node->GetIndexNo() == loopVec[3](i) ) && Node->isBoundaryNode ) {
+                Node->selected = true;
+                Node->geoFieldValue = 1.0; break;
+            }
+        }
+    }
+
 }
 
 void heatMethodField::runHeatMethod(){
@@ -272,6 +357,9 @@ int heatMethodField::detectGenus() {
 			}
 		} while (nNodeDetected == true);
 		meshgenus++;
+
+        break;
+
 	}
 
 	//std::cout<< "The boundary ring of this mesh is "<< meshgenus << std::endl <<std::endl;

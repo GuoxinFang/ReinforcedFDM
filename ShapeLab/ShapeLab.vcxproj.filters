@@ -47,10 +47,28 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="FabricationChecking.cpp">
+    <ClCompile Include="MainWindow.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="MainWindow.cpp">
+    <ClCompile Include="MainWindowFuncion.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="PrincipleStressField.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="ScalarField.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="SurfaceGuidanceField.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="VectorField.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="fileIO.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="heatMethod.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="heatmethodfield.cpp">
@@ -62,81 +80,51 @@
     <ClCompile Include="main.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="toolpathgeneration.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="fileIO.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="PrincipleStressField.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="meshOperator.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="MainWindowFuncion.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="GuidanceField.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="ScalarField.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="VectorField.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="SurfaceGuidanceField.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="FarbicationDirectionDetection.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="heatMethod.cpp">
+    <ClCompile Include="toolpathgeneration.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="FabricationChecking.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <QtMoc Include="MainWindow.h">
       <Filter>Header Files</Filter>
     </QtMoc>
+    <ClInclude Include="PrincipleStressField.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="ScalarField.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="SurfaceGuidanceField.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="VectorField.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="dirent.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="fileIO.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="heatMethod.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
     <ClInclude Include="heatmethodfield.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="isoSurface.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="toolpathgeneration.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="fileIO.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="PrincipleStressField.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="meshOperator.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="GuidanceField.h">
+    <ClInclude Include="resource.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="ScalarField.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="VectorField.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="SurfaceGuidanceField.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="FabricationDirectionDetection.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="heatMethod.h">
+    <ClInclude Include="toolpathgeneration.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

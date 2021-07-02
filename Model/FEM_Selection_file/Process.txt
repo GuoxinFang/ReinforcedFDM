@@ -1,9 +1,0 @@
-To input abaqus mesh to tet -> python file
-
-To input tet to abaqus formate -> in our framework, using the "Export to Abaqus model bottom"
-
-Abaqus analysis output: field output S - setup using element lable, scientific, centroid.
-After the abaqus analysis, using python to generate file that can be directly read by c++ framework.
-
-Compute the normal by eigen value and eigen vector.
-

@@ -23,11 +23,15 @@ public:
 	double autoComputeZigZagTPathOffestingValue(
 		int zigzagTPathNum, int boundaryTPathNum, double boundaryTPathOffset);
 
+	void mergeFieldforCCF();
+
 	double minBoundaryFieldValue;
 	double maxGapDist;
 	double maxConnectDist;
 	double boundaryGapDist;
 	double toolpathOffset;
+
+	bool breakZigzagbyBoundary = true;
 
 
 private:
