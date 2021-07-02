@@ -1,6 +1,8 @@
-[# Reinforced FDM: Multi-Axis Filament Alignment with Controlled Anisotropic Strength](https://guoxinfang.github.io/ReinforcedFDM.html)
+# Reinforced FDM: Multi-Axis Filament Alignment with Controlled Anisotropic Strength
 
 ![](Library/framework.jpg)
+
+[Project Page](https://guoxinfang.github.io/ReinforcedFDM.html), [Video Link](https://www.youtube.com/watch?v=X2o2-SJFv2M)
 
 [Guoxin Fang](https://guoxinfang.github.io/),
 Tianyu Zhang, Sikai Zhong, Xiangjia Chen, 
