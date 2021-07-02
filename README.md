@@ -33,34 +33,26 @@ MacOS: QT Creator
 
 ## Usage
 
-**First input tetrahedral mesh into the system. 
+**First input tetrahedral mesh into the system.**
 
 Two sample model is given 'Bunnyhead.tet' and 'topopt_new.tet'. You can either drag the file into the blank area of the UI or open the panel "file -> open".
 
-#Step 1: 
-
-**Input FEA simulation result** and compute principle stress direction as vector field by clicking bottom 'Step 1: Input FEA Result'.
+- **Step 1: Input FEA simulation result** and compute principle stress direction as vector field by clicking bottom 'Step 1: Input FEA Result'.
 
 The color map on the mesh visulize the stress distribution. You can draw the stress vector field by using function "View -> Profile" or direct click the "Profile" bottom.
 
 You can also change the percentage of the critical region by changing the value below 'Step 1: Input FEA Result' bottom and click 'Change ratio' to redraw the field. Notice the parameter used in our paper is already set as the initial value in UI.
 
-#Step 2: 
-
-**Compute Field** (for both vector field and scalar field) by clicking bottom 'Step 2: Field Computing'. This process may take some time.
+- ** Step 2: Compute Field** (for both vector field and scalar field) by clicking bottom 'Step 2: Field Computing'. This process may take some time.
 
 After finish computing the field, you can draw the scalar field at by using function "View -> Node" or direct click the "Node" bottom.
 
 The vector field can be draw by using function "View -> Profile" or direct click the "Profile" bottom. (the perivious stress field will be replaced).
 
-#Step 3:
-
-** Slicing the model and generate curved layer ** by clicking bottom 'Step 3: Curved Layer Slicer'. You can change the Layer # with different value on the right side.
+- ** Step 3: Slicing the model and generate curved layer ** by clicking bottom 'Step 3: Curved Layer Slicer'. You can change the Layer # with different value on the right side.
 
 You will then have the curved layer in the UI. You can check each layer in "Visual" panel by choosing differnt layer number or only draw single layer by click 'Draw Single'.
 
-#Step 4:
-
-** Compute vector field on each curved surface (for toolpath generation) ** by clicking ' Step 4: Compute Field on Iso-Surface'.
+- ** Step 4: Compute vector field on each curved surface (for toolpath generation) ** by clicking ' Step 4: Compute Field on Iso-Surface'.
 
 ** Caution: ** Before run this process, please make sure you disable the drawing of profile, otherwise the system will automatic draw the vector field on every layer (may take 1 min to draw this)!
