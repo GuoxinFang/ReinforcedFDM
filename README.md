@@ -1,6 +1,13 @@
-## Reinforced FDM: Multi-Axis Filament Alignment with Controlled Anisotropic Strength
+# Reinforced FDM: 
+## Multi-Axis Filament Alignment with Controlled Anisotropic Strength
 
-This is the source code (under construction 08/22/2020) for the examples in the following paper:
+Updated： July-02-2021
 
-* Guoxin Fang, Tianyu Zhang, Sikai Zhong, Xiangjia Chen, Zichun Zhong, and Charlie C.L. Wang. 2020. [Reinforced FDM: Multi-Axis Filament Alignment with Controlled Anisotropic Strength]. Siggraph Asia 2020 (conditinally accepted).
+This is the code to slice curved 3D printing layer and generate toolpath based on the stress distribution. The generated toolpath can be printed by multi-axis 3D printer, which results a higher strength in fabricated model.
+
+[Reinforced FDM: Multi-Axis Filament Alignment with Controlled Anisotropic Strength]
+* Guoxin Fang, Tianyu Zhang, Sikai Zhong, Xiangjia Chen, Zichun Zhong, and Charlie C.L. Wang. 2020. 
+[ACM Transactions on Graphics (Proceedings of SIGGRAPH Asia 2020)], vol.39, no.6, article no.204, 2020.
+
+
 
