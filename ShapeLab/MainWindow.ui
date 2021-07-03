@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1511</width>
-    <height>887</height>
+    <width>1600</width>
+    <height>900</height>
    </rect>
   </property>
   <property name="mouseTracking">
@@ -191,7 +191,7 @@
        </property>
        <widget class="QWidget" name="tab_3">
         <attribute name="title">
-         <string>Field computing, slcing and toolpath generation</string>
+         <string>Layer slicing / Toolpath Generation</string>
         </attribute>
         <layout class="QGridLayout" name="gridLayout_2">
          <item row="2" column="0">
@@ -656,7 +656,7 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>1511</width>
+     <width>1600</width>
      <height>18</height>
     </rect>
    </property>

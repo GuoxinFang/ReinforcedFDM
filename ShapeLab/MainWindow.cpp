@@ -692,7 +692,7 @@ void MainWindow::_updateFrameworkParameter() {
 	if (modelName == "bunnyhead") this->_setParameter(0.1, 0.1, 100, false, 295);
 	else if (modelName == "topopt_new") this->_setParameter(0.3, 0.3, 100, false, 210);
 	else if (modelName == "CSquare") this->_setParameter(0.1, 0.1, 120, true, 0);
-	else if (modelName == "YogaNew") this->_setParameter(0.1, 0.1, 160, true, 0);
+	else if (modelName == "YogaNew") this->_setParameter(0.1, 0.0, 160, true, 0);
 	else if (modelName == "bridgeSmall") this->_setParameter(0.3, 0.0, 150, false, 180);
 	else {
 		std::cout << "This model is not found, using initial parameters!" << std::endl;
@@ -706,9 +706,10 @@ void MainWindow::_setParameter(
 	double tensileRaio, double compressRatio, int layerNum, bool threeDimComp, int twoDimRotateAngle){
 
 	ui->tensileRegionRatio->setText(QString::number(tensileRaio));
-	ui->compressRegionRatio->setText(QString::number(tensileRaio));
+	ui->compressRegionRatio->setText(QString::number(compressRatio));
 	ui->isoLayerNumber->setValue(layerNum);
 	ui->checkBox_3DCompute->setChecked(threeDimComp);
+	ui->outputLayerIndexNum->setValue(layerNum);
 
 }
 

@@ -451,7 +451,9 @@ void VectorField::_changeCriticalRegionFieldDir(Eigen::VectorXi& orderiter) {
 		QMeshTetra* Tetra = (QMeshTetra*)tetMesh->GetTetraList().GetNext(Pos);
 		if (Tetra->isTensileorCompressSelect == false) continue;
 		else {
-			if (orderiter(Tetra->floodingRegionIndex) == 1) Tetra->vectorField = -Tetra->vectorField;
+			// bug fixing! 02-July-2021, Guoxin Fang, Manchester, UK
+			if (orderiter(Tetra->floodingRegionIndex-1) == 1) 
+				Tetra->vectorField = -Tetra->vectorField;
 		}
 	}
 }

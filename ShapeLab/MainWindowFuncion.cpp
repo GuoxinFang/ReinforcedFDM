@@ -168,6 +168,7 @@ void MainWindow::isoSurfaceFieldComputingforToolPathGeneration() {
 	PolygenMesh* initModel = this->_detectPolygenMesh(INIT_TET);
 	if (initModel->getModelName() == "bunnyhead") dir << 0.0, 1.0, 0.0;
 	else if (initModel->getModelName() == "topopt_new") dir << 1.0, 0.0, 0.0;
+	else if (initModel->getModelName() == "YogaNew") dir << 0.0, 1.0, 0.0;
 	else dir << 1.0, 0.0, 0.0;
 
 	//----Compute the vector field in every layer - for the toolpath generation!
