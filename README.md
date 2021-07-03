@@ -33,7 +33,7 @@ macOS: QT Creator
 
 - **Open Console** at: ShapeLab Project Property -> 'Configuration Proerties' -> Linker -> System -> Select 'Console (/SUBSYSTEM:CONSOLE)' in 'SubSystem'
 
-- **QT verstion** if you install a different qt version and meet with an issue open the UI after finish compiles the project, 
+- **QT verstion** if you install a different qt version and meet with an issue open the UI after compile the project, 
 you may first check and find 'Qt5Core.dll', 'Qt5Gui.dll', and 'Qt5Wdgets.dll' in the QT installed folder and add to '../shapeLab/release/' folder (Visual Studio will generate this folder after you compile the project). 
 For Debug mode, you need to add 'Qt5Cored.dll', 'Qt5Guid.dll', and 'Qt5Wdgetsd.dll' to '../shapeLab/debug/' folder.
 
