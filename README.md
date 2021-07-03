@@ -37,7 +37,7 @@ macOS: QT Creator
 
 **First input tetrahedral mesh into the system.**
 
-Two sample models are given 'Bunnyhead.tet' and 'topopt_new.tet'. You can either drag the file into the blank area of the UI or open the panel "file -> open" and then select the model.
+Three sample models are given 'Bunnyhead.tet', 'topopt_new.tet', and 'YogaNew.tet'. You can either drag the file into the blank area of the UI or open the panel "file -> open" and then select the model.
 
 **Step 1: Input FEA simulation result** and compute principal stress direction as vector field by clicking bottom 'Step 1: Input FEA Result'.
 
@@ -70,7 +70,7 @@ You can output the entire surface without splitting by deselecting the checkbox 
 Please make sure you enable OpenMP to accelerate the computing process. Normally it takes **2-3 mins** to run the top-opt model on a 6-Core Intel CPU.
 By opening the Console you can also check the progress during the computing.
 
-- This process will also take more than 8GB of memory on your PC for the top-opt model, please make sure you have at least 16GB RAM to get the best performance.
+- This process will also take more than 8GB of memory on your PC for the 'top-opt' and 'YogaNew' model, please make sure you have at least 16GB RAM to get the best performance.
 
 - After finish computing the toolpath, please enable drawing the toolpath by using the function "View -> Edge" or direct click the "Edge" bottom.
 you will also see all the toolpaths as a mesh visualized in the 'Model tree' panel. In the 'Visual' panel, you can click the bottom "Deselect all in model tree" and then select the layer you want to draw by clicking it in the Model tree.
