@@ -33,6 +33,10 @@ macOS: QT Creator
 
 - **Open Console** at: ShapeLab Project Property -> 'Configuration Proerties' -> Linker -> System -> Select 'Console (/SUBSYSTEM:CONSOLE)' in 'SubSystem'
 
+- **QT verstion** if you install different qt version and meet with issue open the UI after finish complie the project, 
+you may first check and find 'Qt5Core.dll', 'Qt5Gui.dll', and 'Qt5Wdgets.dll' in the QT installed folder and add to '../shapeLab/release/' folder (Visual Studio will generate this folder after you complie the project).
+For Debug molde, you need to add 'Qt5Cored.dll', 'Qt5Guid.dll', and 'Qt5Wdgetsd.dll' to '../shapeLab/debug/' folder.
+
 ## Usage
 
 **First input tetrahedral mesh into the system.**
@@ -64,7 +68,7 @@ Three sample models are given 'Bunnyhead.tet', 'topopt_new.tet', and 'YogaNew.te
 - This function will also split the surface into single pieces. For example, if one layer (No. 10) contains three regions, our code will output three .obj files named 1000.obj, 1001.obj and 1002.obj. 
 You can output the entire surface without splitting by deselecting the checkbox 'split', however, the surfaces generated in this way cannot be used for the next step to compute the toolpath.
 
-**Step 6: Toolpath Generation** by clicking 'Step 6: Multi-toolpath Generation (New)'.
+**Step 6: Toolpath Generation** by clicking 'Step 6: Toolpath Generation (New)'.
 
 - This process will take a long time as each layer will load into the system, compute scalar field & boundary distance field, and subtract the hybrid stress-aligned curved toolpath.
 Please make sure you enable OpenMP to accelerate the computing process. Normally it takes **2-3 mins** to run the top-opt model on a 6-Core Intel CPU.
