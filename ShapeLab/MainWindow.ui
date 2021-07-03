@@ -202,13 +202,13 @@
               <widget class="QGroupBox" name="groupBox">
                <property name="minimumSize">
                 <size>
-                 <width>140</width>
+                 <width>160</width>
                  <height>80</height>
                 </size>
                </property>
                <property name="maximumSize">
                 <size>
-                 <width>140</width>
+                 <width>160</width>
                  <height>80</height>
                 </size>
                </property>
@@ -250,7 +250,7 @@
                 </size>
                </property>
                <property name="title">
-                <string>Generate Field by step and manual edit</string>
+                <string>Compute Field by step &amp; edit field</string>
                </property>
                <layout class="QGridLayout" name="gridLayout">
                 <item row="0" column="0">
@@ -400,7 +400,7 @@
          <item row="8" column="0">
           <widget class="QPushButton" name="pushButton_directToolPathGeneration">
            <property name="text">
-            <string>Step 6: Multi-toolpath Generation (new)</string>
+            <string>Step 6: Toolpath Generation</string>
            </property>
           </widget>
          </item>
@@ -409,7 +409,7 @@
            <item>
             <widget class="QPushButton" name="pushButton_outputIsoLayer">
              <property name="text">
-              <string>Step 5: Output Layer Below:</string>
+              <string>Step 5: Output layer and split</string>
              </property>
             </widget>
            </item>
