@@ -17,7 +17,7 @@ This is the code to slice the given model with curved 3D printing layers and gen
 
 ## Installation
 
-Please compline the code with QMake file 'ReinforcedFDM.pro'.
+Please compile the code with QMake file 'ReinforcedFDM.pro'.
 
 Tested platform: 
 
